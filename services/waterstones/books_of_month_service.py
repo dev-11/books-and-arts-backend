@@ -1,9 +1,9 @@
 import requests
 import bs4
-import services
+from services.service_strategy import ServiceStrategy
 
 
-class BooksOfTheMonthService(services.ServiceStrategy):
+class BooksOfTheMonthService(ServiceStrategy):
     def __init__(self, url):
         self._url = url
 
