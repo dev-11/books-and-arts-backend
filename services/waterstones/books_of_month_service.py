@@ -1,11 +1,14 @@
 import requests
 import bs4
-from services.service_strategy import ServiceStrategy
+from services import ServiceStrategy
 
 
 class BooksOfTheMonthService(ServiceStrategy):
     def __init__(self, url):
         self._url = url
+
+    def get_service_name(self):
+        return 'books_of_the_month'
 
     @staticmethod
     def get_book_details(divs):
@@ -37,5 +40,3 @@ class BooksOfTheMonthService(ServiceStrategy):
 
         return [self.get_book_details(pair) for pair in grouped]
 
-    def get_service_name(self):
-        return 'books_of_the_month'
