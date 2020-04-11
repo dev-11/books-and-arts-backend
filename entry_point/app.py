@@ -1,27 +1,18 @@
 from datetime import datetime as dt
-from services import BooksOfTheMonthService
+from services.service_factory import get_services
 import json
-import config
 
 
 def lambda_handler(event, context):
 
-    data = get_books_of_month()
+    data = [{'service': service.get_service_name(),
+             'data': service.get_data()}
+            for service in get_services()]
 
     return {
         'statusCode': 200,
         'body': {
             'fetched_at': json.dumps(f'{dt.now()}'),
-            'data': [data]
+            'data': data
         }
-    }
-
-
-def get_books_of_month():
-    bom_service = BooksOfTheMonthService(config.books_of_the_month_url)
-    books_of_the_month = bom_service.get_books_of_the_month()
-
-    return {
-        'service': 'books_of_the_month',
-        'data': books_of_the_month
     }

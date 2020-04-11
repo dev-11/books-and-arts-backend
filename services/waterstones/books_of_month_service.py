@@ -1,8 +1,9 @@
 import requests
 import bs4
+import services
 
 
-class BooksOfTheMonthService:
+class BooksOfTheMonthService(services.ServiceStrategy):
     def __init__(self, url):
         self._url = url
 
@@ -23,7 +24,7 @@ class BooksOfTheMonthService:
             'desc': desc
         }
 
-    def get_books_of_the_month(self):
+    def get_data(self):
         page = requests.get(self._url)
 
         soup = bs4.BeautifulSoup(page.text, 'html.parser')
@@ -35,3 +36,6 @@ class BooksOfTheMonthService:
         grouped = list(zip(*[iter(bom)] * 2))
 
         return [self.get_book_details(pair) for pair in grouped]
+
+    def get_service_name(self):
+        return 'books_of_the_month'
