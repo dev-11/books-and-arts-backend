@@ -23,3 +23,4 @@ deploy:
   handler_name: "lambda_handler"
   module_name: "entry_point/app"
   timeout: 60
+  layers: [bs4_layer, requests_layer]
