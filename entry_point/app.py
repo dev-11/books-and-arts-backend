@@ -1,10 +1,27 @@
-import json
 from datetime import datetime as dt
+from services import BooksOfTheMonthService
+import json
+import config
 
 
 def lambda_handler(event, context):
-    # TODO implement
+
+    data = get_books_of_month()
+
     return {
         'statusCode': 200,
-        'body': json.dumps(f'Hello from Lambda @ {dt.now()}!')
+        'body': {
+            'fetched_at': json.dumps(f'{dt.now()}'),
+            'data': [data]
+        }
+    }
+
+
+def get_books_of_month():
+    bom_service = BooksOfTheMonthService(config.books_of_the_month_url)
+    books_of_the_month = bom_service.get_books_of_the_month()
+
+    return {
+        'service': 'books_of_the_month',
+        'data': books_of_the_month
     }
