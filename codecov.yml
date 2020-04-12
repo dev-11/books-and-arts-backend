@@ -33,4 +33,4 @@ ignore:
   - "config.py"
   - "**/__init__.py"
   - "entry_point/*  "
-
+  - "**/service_strategy.py"
