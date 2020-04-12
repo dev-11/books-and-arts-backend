@@ -8,7 +8,7 @@ class ComingSoonService(ServiceStrategy):
         self._url = url
 
     def get_service_name(self):
-        return "coming_soon_service"
+        return "coming_soon"
 
     @staticmethod
     def get_book_details(divs):
