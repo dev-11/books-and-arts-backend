@@ -4,8 +4,8 @@ import config
 
 def get_all_services():
     return [ws.BooksOfTheMonthService(config.books_of_the_month_url),
-            ws.ComingSoonService(),
-            ws.ComingSoonService()]
+            ws.ComingSoonService(config.coming_soon_url),
+            ws.NewBooksService()]
 
 
 def get_enabled_services():
