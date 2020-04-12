@@ -8,6 +8,6 @@ def get_all_services():
             ws.ComingSoonService()]
 
 
-def get_required_services():
+def get_enabled_services():
     return [service for service in get_all_services()
-            if service.get_service_name() in config.services]
+            if service.get_service_name() in config.enabled_services]
