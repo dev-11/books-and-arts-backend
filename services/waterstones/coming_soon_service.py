@@ -13,15 +13,21 @@ class ComingSoonService(ServiceStrategy):
     @staticmethod
     def get_book_details(divs):
         section = divs[0].find('h2').text.strip()
-        bp = divs[0].find(class_='book-preview')
-        title = bp.find(class_='title-wrap').text.strip()
-        authors = bp.find(class_='author-wrap').text.strip()
-        price = bp.find(class_='price').text.strip()
+        bps = divs[0].find_all(class_='book-preview')
+        b = []
+        for _ in bps:
+            title = _.find(class_='title-wrap').text.strip()
+            authors = _.find(class_='author-wrap').text.strip()
+            price = _.find(class_='price').text.strip()
+            b.append({
+                'title': title.encode("utf-8"),
+                'authors': authors.encode("utf-8"),
+                'price': price.encode("utf-8")
+            })
+
         return {
             'section': section.encode("utf-8"),
-            'title': title.encode("utf-8"),
-            'authors': authors.encode("utf-8"),
-            'price': price.encode("utf-8")
+            'books': b
         }
 
     def get_data(self):
