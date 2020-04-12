@@ -12,8 +12,8 @@ class ComingSoonService(ServiceStrategy):
 
     @staticmethod
     def get_book_details(divs):
-        section = divs[0].find('h2').text.strip()
-        bps = divs[0].find_all(class_='book-preview')
+        section = divs.find('h2').text.strip()
+        bps = divs.find_all(class_='book-preview')
         b = []
         for _ in bps:
             title = _.find(class_='title-wrap').text.strip()
@@ -39,6 +39,6 @@ class ComingSoonService(ServiceStrategy):
         lst2 = lst.find_all(class_='span12')
 
         bom = lst2[1:]
-        grouped = list(zip(*[iter(bom)] * 2))
+        bom.pop(1)  # removing 'special' section
 
-        return [self.get_book_details(pair) for pair in grouped]
+        return [self.get_book_details(pair) for pair in bom]
