@@ -5,5 +5,5 @@ new_books_url = 'https://www.waterstones.com/campaign/new-books'
 enabled_services = [
     'books_of_the_month',
     'coming_soon',
-    'new_book'
+    'new_books'
 ]
