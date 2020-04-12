@@ -40,7 +40,7 @@ class NewBooksService(ServiceStrategy):
         lst = soup.find(class_='row home-row')
         lst2 = lst.find_all(class_='span12')
 
-        bom = lst2[1:]
-        bom.pop(1)  # removing 'special' section
+        bom = lst2[1:5]
+        bom.pop(2)  # removing 'special' section
 
         return [self.get_book_details(pair) for pair in bom]
