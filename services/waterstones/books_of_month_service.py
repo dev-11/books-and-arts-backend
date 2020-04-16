@@ -18,13 +18,15 @@ class BooksOfTheMonthService(ServiceStrategy):
         price = divs[1].find('b', itemprop='price').text.strip()
         frmat = divs[1].find(class_='format').text.strip()
         desc = divs[1].find(class_='description').text.strip()
+        img = divs[1].div.a.img['src']
         return {
             'section': section,
             'title': title,
             'authors': authors,
             'price': price,
             'format': frmat,
-            'desc': desc
+            'desc': desc,
+            'img': img
         }
 
     def get_data(self):
