@@ -20,11 +20,13 @@ class NewBooksService(ServiceStrategy):
             authors = _.find(class_='author-wrap').text.strip()
             price = _.find(class_='price').text.strip()
             frmt = _.find(class_='format').text.strip()
+            img = _.find(class_='image-wrap').a.img['data-src']
             books.append({
                 'title': title.encode("utf-8"),
                 'authors': authors.encode("utf-8"),
                 'price': price.encode("utf-8"),
-                'format': frmt.encode("utf-8")
+                'format': frmt.encode("utf-8"),
+                'img': img.encode("utf-8")
             })
 
         return {
