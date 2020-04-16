@@ -5,3 +5,4 @@ The Waterstones specific services.
 from .books_of_month_service import BooksOfTheMonthService
 from .coming_soon_service import ComingSoonService
 from .new_books_service import NewBooksService
+from .waterstones_base_service import WaterstonesBaseService

@@ -1,14 +1,11 @@
 import requests
 from bs4 import BeautifulSoup
-from services import ServiceStrategy
+from .national_gallery_base_service import NationalGalleryBaseService as NGBS
 
 
-class CurrentExhibitionsService(ServiceStrategy):
+class CurrentExhibitionsService(NGBS):
     def __init__(self, url):
         self._url = url
-
-    def get_service_family_name(self):
-        return 'national_gallery'
 
     def get_data(self):
         page = requests.get(self._url)

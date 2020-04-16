@@ -1,1 +1,2 @@
 from .current_exhibitions_service import CurrentExhibitionsService
+from .national_gallery_base_service import NationalGalleryBaseService

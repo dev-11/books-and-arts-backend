@@ -1,14 +1,11 @@
 import requests
 import bs4
-from services import ServiceStrategy
+from .waterstones_base_service import WaterstonesBaseService as WBS
 
 
-class ComingSoonService(ServiceStrategy):
+class ComingSoonService(WBS):
     def __init__(self, url):
         self._url = url
-
-    def get_service_family_name(self):
-        return 'waterstones'
 
     @staticmethod
     def get_book_details(divs):
