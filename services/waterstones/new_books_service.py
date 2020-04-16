@@ -7,6 +7,9 @@ class NewBooksService(ServiceStrategy):
     def __init__(self, url):
         self._url = url
 
+    def get_service_family_name(self):
+        return 'waterstones'
+
     def get_service_name(self):
         return "new_books"
 
