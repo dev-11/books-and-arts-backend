@@ -6,9 +6,11 @@ class ServiceStrategy(ABC):
     def get_service_family_name(self):
         pass
 
-    @abstractmethod
     def get_service_name(self):
-        pass
+        service_name = self.__class__.__name__.replace('Service', '')
+
+        return ''.join(['_' + i.lower() if i.isupper()
+                        else i for i in service_name]).lstrip('_')
 
     @abstractmethod
     def get_data(self):

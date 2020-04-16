@@ -10,9 +10,6 @@ class ComingSoonService(ServiceStrategy):
     def get_service_family_name(self):
         return 'waterstones'
 
-    def get_service_name(self):
-        return "coming_soon"
-
     @staticmethod
     def get_book_details(divs):
         section = divs.find('h2').text.strip()

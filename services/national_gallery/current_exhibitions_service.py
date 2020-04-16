@@ -10,9 +10,6 @@ class CurrentExhibitionsService(ServiceStrategy):
     def get_service_family_name(self):
         return 'national_gallery'
 
-    def get_service_name(self):
-        return 'current_exhibitions'
-
     def get_data(self):
         page = requests.get(self._url)
 
