@@ -1,3 +1,2 @@
-from .national_gallery_base_service import InnerService
 from .current_exhibitions_service import CurrentExhibitionsService
 from .coming_soon_service import ComingSoonService
