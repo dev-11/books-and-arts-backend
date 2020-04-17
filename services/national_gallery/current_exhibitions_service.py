@@ -6,6 +6,6 @@ class CurrentExhibitionsService(InnerService):
         self._url = url
 
     def get_data(self):
-        zipped = self.get_data()
+        zipped = super().get_data()
 
         return self.get_exhibition_details(zipped[0])
