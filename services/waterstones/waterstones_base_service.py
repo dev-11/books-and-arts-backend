@@ -7,6 +7,7 @@ class WaterstonesBaseService(ServiceStrategy):
     def get_service_family_name(self):
         return 'waterstones'
 
+
 class InnerService(WaterstonesBaseService):
     @staticmethod
     def get_book_details(divs):

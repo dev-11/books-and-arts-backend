@@ -7,6 +7,7 @@ class ComingSoonService(InnerService):
 
     def get_data(self):
         lst2 = super().get_data()
+
         bom = lst2[1:]
         bom.pop(1)  # removing 'special' section
 
