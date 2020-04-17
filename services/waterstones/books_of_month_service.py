@@ -1,6 +1,7 @@
 from .waterstones_base_service import InnerService
 from repositories import S3Repository
-
+import json
+import config
 
 class BooksOfTheMonthService(InnerService):
     def __init__(self, url):
@@ -32,5 +33,7 @@ class BooksOfTheMonthService(InnerService):
         # grouped = list(zip(*[iter(bom)] * 2))
         #
         # return [self.get_book_details(pair) for pair in grouped]
-        s3r = S3Repository(self.get_service_family_name())
-        return s3r.read(self.get_service_name())
+        s3r = S3Repository(config.data_bucket)
+        key = f'{self.get_service_family_name()}/{self.get_service_name()}.json'
+        data = s3r.read(key)
+        return json.loads(data)
