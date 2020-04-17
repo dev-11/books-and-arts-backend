@@ -1,9 +1,7 @@
-import requests
-import bs4
-from .waterstones_base_service import WaterstonesBaseService as WBS
+from .waterstones_base_service import InnerService
 
 
-class BooksOfTheMonthService(WBS):
+class BooksOfTheMonthService(InnerService):
     def __init__(self, url):
         self._url = url
 
@@ -27,12 +25,7 @@ class BooksOfTheMonthService(WBS):
         }
 
     def get_data(self):
-        page = requests.get(self._url)
-
-        soup = bs4.BeautifulSoup(page.text, 'html.parser')
-
-        lst = soup.find(class_='row home-row')
-        lst2 = lst.find_all(class_='span12')
+        lst2 = super().get_data()
 
         bom = lst2[1:]
         grouped = list(zip(*[iter(bom)] * 2))
