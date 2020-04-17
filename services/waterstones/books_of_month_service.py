@@ -1,4 +1,5 @@
 from .waterstones_base_service import InnerService
+from repositories import S3Repository
 
 
 class BooksOfTheMonthService(InnerService):
@@ -25,10 +26,11 @@ class BooksOfTheMonthService(InnerService):
         }
 
     def get_data(self):
-        lst2 = super().get_data()
-
-        bom = lst2[1:]
-        grouped = list(zip(*[iter(bom)] * 2))
-
-        return [self.get_book_details(pair) for pair in grouped]
-
+        # lst2 = super().get_data()
+        #
+        # bom = lst2[1:]
+        # grouped = list(zip(*[iter(bom)] * 2))
+        #
+        # return [self.get_book_details(pair) for pair in grouped]
+        s3r = S3Repository(self.get_service_family_name())
+        return s3r.read(self.get_service_name())
