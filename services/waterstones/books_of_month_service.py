@@ -3,6 +3,7 @@ from repositories import S3Repository
 import json
 import config
 
+
 class BooksOfTheMonthService(InnerService):
     def __init__(self, url):
         self._url = url
@@ -35,5 +36,6 @@ class BooksOfTheMonthService(InnerService):
         # return [self.get_book_details(pair) for pair in grouped]
         s3r = S3Repository(config.data_bucket)
         key = f'{self.get_service_family_name()}/{self.get_service_name()}.json'
-        data = s3r.read(key)
+        # data = s3r.read_body(key)
+        data = s3r.get_metadata(key)
         return json.loads(data)

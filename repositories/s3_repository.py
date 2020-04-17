@@ -7,10 +7,14 @@ class S3Repository:
         self._bucket = bucket
         self._s3 = boto3.resource('s3')
 
-    def read(self, key):
+    def get_body(self, key):
         obj = self._s3.Object(self._bucket, key)
         body = obj.get()['Body'].read()
         return body
+
+    def get_metadata(self, key):
+        head = self._s3.head_object(Bucket=self._bucket, Key=key)
+        return head['Metadata']
 
     def has_key(self, key):
         try:
