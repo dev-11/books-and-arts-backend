@@ -11,8 +11,8 @@ class CacheService:
         pass
 
     def get_expiry_date(self, key):
-        metadata = self._repository.get_metadata(key)
         try:
+            metadata = self._repository.get_metadata(key)
             return metadata['expiry_date']
         except KeyError:
             return dt(2000, 1, 1, 0, 0, 0)
