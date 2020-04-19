@@ -11,7 +11,7 @@ class S3Repository:
     def get_body(self, key):
         obj = self._s3.Object(self._bucket, key)
         body = obj.get()['Body'].read()
-        return body
+        return json.loads(body)
 
     def get_metadata(self, key):
         obj = self._s3.Object(self._bucket, key)

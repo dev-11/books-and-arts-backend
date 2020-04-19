@@ -28,14 +28,15 @@ class BooksOfTheMonthService(InnerService):
         }
 
     def get_data(self):
-        lst2 = super().get_data()
-
-        bom = lst2[1:]
-        grouped = list(zip(*[iter(bom)] * 2))
-
-        data = [self.get_book_details(pair) for pair in grouped]
 
         if self._cache_service.is_cache_expired(self._key) or self._cache_service.get_data(self._key) is None:
+            sections = super().get_data()
+
+            bom = sections[1:]
+            grouped = list(zip(*[iter(bom)] * 2))
+
+            data = [self.get_book_details(pair) for pair in grouped]
+
             self._cache_service.update_cache(self._key, data, self.get_service_life_in_seconds())
             return data
 
