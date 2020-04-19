@@ -39,4 +39,4 @@ class BooksOfTheMonthService(InnerService):
             self._cache_service.update_cache(self._key, data, self.get_service_life_in_seconds())
             return data
 
-        return self._cache_service.get_data()
+        return self._cache_service.get_data(self._key)
