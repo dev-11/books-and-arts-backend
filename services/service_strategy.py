@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+import config
 
 
 class ServiceStrategy(ABC):
@@ -18,3 +19,8 @@ class ServiceStrategy(ABC):
 
     def get_service_full_name(self):
         return f'{self.get_service_family_name()}.{self.get_service_name()}'
+
+    @staticmethod
+    def get_service_life_in_seconds():
+        return config.default_service_life_in_seconds
+

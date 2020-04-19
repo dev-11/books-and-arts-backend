@@ -12,3 +12,5 @@ enabled_services = [
     # 'national_gallery.current_exhibitions',
     # 'national_gallery.coming_soon'
 ]
+
+default_service_life_in_seconds = 5

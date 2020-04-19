@@ -13,12 +13,23 @@ class S3Repository:
         return body
 
     def get_metadata(self, key):
-        head = self._s3.head_object(Bucket=self._bucket, Key=key)
-        return head['Metadata']
+        obj = self._s3.Object(self._bucket, key)
+        metadata = obj.get()['Metadata']
+        return metadata
 
     def has_key(self, key):
         try:
             self._s3.head_object(Bucket=self._bucket, Key=key)
         except ClientError:
+            return False
+        return True
+
+    def save_or_update_file(self, key, value, expiry_date):
+        object_name = key
+        try:
+            response = self._s3.upload_file(key, self._bucket, object_name,
+                                            ExtraArgs={'Metadata': {'expiry_date': expiry_date}}
+                                            )
+        except ClientError as e:
             return False
         return True
