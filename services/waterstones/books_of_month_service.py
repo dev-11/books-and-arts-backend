@@ -37,6 +37,7 @@ class BooksOfTheMonthService(InnerService):
 
             data = [self.get_book_details(pair) for pair in grouped]
 
+            # TODO set service life to the last second of the month
             self._cache_service.update_cache(self._key, data, self.get_service_life_in_seconds())
             return data
 
