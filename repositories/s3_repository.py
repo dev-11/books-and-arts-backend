@@ -1,5 +1,6 @@
 import boto3
 from botocore.errorfactory import ClientError
+import json
 
 
 class S3Repository:
@@ -19,7 +20,7 @@ class S3Repository:
 
     def has_key(self, key):
         try:
-            self._s3.head_object(Bucket=self._bucket, Key=key)
+            self._s3.Bucket(self._bucket).Object(key).last_modified
         except ClientError:
             return False
         return True
@@ -27,7 +28,7 @@ class S3Repository:
     def save_or_update_file(self, key, value, expiry_date):
         try:
             obj = self._s3.Object(self._bucket, key)
-            obj.put(Body=value, ExtraArgs={'Metadata': {'expiry_date': expiry_date}})
+            obj.put(Body=json.dumps(value), Metadata={'expiry-date': str(expiry_date)})
 
         except ClientError as e:
             return False

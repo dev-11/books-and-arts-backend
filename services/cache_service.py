@@ -7,15 +7,12 @@ class CacheService:
     def __init__(self, repository: S3Repository):
         self._repository = repository
 
-    def set_key(self, key):
-        pass
-
     def get_expiry_date(self, key):
-        try:
+        if self._repository.has_key(key):
             metadata = self._repository.get_metadata(key)
-            return metadata['expiry_date']
-        except KeyError:
-            return dt(2000, 1, 1, 0, 0, 0)
+            return metadata['expiry-date']
+
+        return dt(2000, 1, 1, 0, 0, 0)
 
     def get_data(self, key):
         return self._repository.get_body(key)
@@ -25,4 +22,4 @@ class CacheService:
         self._repository.save_or_update_file(key, data, expiry_date)
 
     def is_cache_expired(self, key):
-        return self.get_expiry_date(key) <= dt.now()
+        return dt.fromisoformat(self.get_expiry_date(key)) <= dt.now()
