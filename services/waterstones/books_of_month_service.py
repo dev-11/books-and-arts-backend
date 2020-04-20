@@ -1,5 +1,7 @@
 from .waterstones_base_service import InnerService
 from services import CacheService
+import calendar
+from datetime import datetime as dt
 
 
 class BooksOfTheMonthService(InnerService):
@@ -38,7 +40,13 @@ class BooksOfTheMonthService(InnerService):
             data = [self.get_book_details(pair) for pair in grouped]
 
             # TODO set service life to the last second of the month
-            self._cache_service.update_cache(self._key, data, self.get_service_life_in_seconds())
+            self._cache_service.update_cache(self._key, data, BooksOfTheMonthService.get_expiry_date())
             return data
 
         return self._cache_service.get_data(self._key)
+
+    @staticmethod
+    def get_expiry_date():
+        today = dt.today()
+        last_day_of_month = calendar.monthrange(today.year, today.month)[1]
+        return dt(today.year, today.month, last_day_of_month, 23, 59, 59)

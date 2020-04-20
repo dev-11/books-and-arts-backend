@@ -1,4 +1,6 @@
 from abc import ABC, abstractmethod
+from datetime import datetime as dt
+from datetime import timedelta as td
 import config
 
 
@@ -21,6 +23,7 @@ class ServiceStrategy(ABC):
         return f'{self.get_service_family_name()}.{self.get_service_name()}'
 
     @staticmethod
-    def get_service_life_in_seconds():
-        return config.default_service_life_in_seconds
+    def get_expiry_date():
+        return dt.now() + td(seconds=config.default_service_life_in_seconds)
+
 
