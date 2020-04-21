@@ -18,7 +18,7 @@ def get_all_services():
 def get_waterstones_books_of_the_month_service():
     repo = s3r.S3Repository(config.data_bucket)
     storage = ss.StorageService(repo)
-    scraping_service = ws.WaterStonesScrapingService(config.books_of_the_month_url)
+    scraping_service = ws.BooksOfTheMonthScrapingService(config.books_of_the_month_url)
     return ws.BooksOfTheMonthService(scraping_service, cs.CacheService(storage))
 
 
