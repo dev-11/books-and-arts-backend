@@ -12,7 +12,7 @@ class StorageService:
             metadata = self._repo.get_metadata(key)
             return metadata['expiry-date']
 
-        return dt(2000, 1, 1, 0, 0, 0)
+        return str(dt(2000, 1, 1, 0, 0, 0))
 
     def get(self, key):
         data = self._repo.get_body(key)

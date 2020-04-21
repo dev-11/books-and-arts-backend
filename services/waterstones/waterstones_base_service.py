@@ -5,7 +5,7 @@ import bs4
 
 class WaterstonesBaseService(ServiceStrategy):
     def __init__(self, scraping_service, cache_service, key):
-        self._scarping_service = scraping_service
+        self._scraping_service = scraping_service
         self._key = key
         self._cache_service = cache_service
 
@@ -15,7 +15,7 @@ class WaterstonesBaseService(ServiceStrategy):
     def get_data(self):
         if self._cache_service.is_cache_expired(self._key) or self._cache_service.get_data(self._key) is None:
 
-            data = self._scarping_service.scrape_page()
+            data = self._scraping_service.scrape_page()
 
             self._cache_service.update_cache(self._key, data, self.get_expiry_date())
             return data
