@@ -1,13 +1,10 @@
-from .waterstones_base_service import ScrapingServiceBase, WaterstonesBaseService
+from .waterstones_base_service import WaterStonesScrapingService, WaterstonesBaseService
 from services import CacheService
 
 
-class ComingSoonScrapingService(ScrapingServiceBase):
+class ComingSoonScrapingService(WaterStonesScrapingService):
     def __init__(self, url):
-        self._url = url
-
-    def scrape_item_details(self, divs):
-        return super().scrape_item_details(divs)
+        super().__init__(url)
 
     def scrape_page(self):
         lst2 = super().scrape_page()
