@@ -12,9 +12,10 @@ class WaterstonesBaseService(ServiceStrategy):
     def get_service_family_name(self):
         return 'waterstones'
 
-    def get_data(self):
-        if self._cache_service.is_cache_expired(self._key) or self._cache_service.get_data(self._key) is None:
-
+    def get_data(self, is_forced):
+        if is_forced \
+                or self._cache_service.is_cache_expired(self._key) \
+                or self._cache_service.get_data(self._key) is None:
             data = self._scraping_service.scrape_page()
 
             self._cache_service.update_cache(self._key, data, self.get_expiry_date())
