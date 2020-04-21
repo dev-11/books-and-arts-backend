@@ -12,8 +12,8 @@ class WaterstonesBaseService(ServiceStrategy):
     def get_service_family_name(self):
         return 'waterstones'
 
-    def get_data(self, is_forced):
-        if is_forced \
+    def get_data(self, is_hard_get):
+        if is_hard_get \
                 or self._cache_service.is_cache_expired(self._key) \
                 or self._cache_service.get_data(self._key) is None:
             data = self._scraping_service.scrape_page()

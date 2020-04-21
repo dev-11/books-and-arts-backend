@@ -6,14 +6,15 @@ import config as c
 
 def lambda_handler(event, context):
 
-    is_forced = event[c.lambda_is_forced_event_key] \
-        if c.lambda_is_forced_event_key in event \
+    headers = event['params']['header']
+    is_hard_get = headers[c.hard_load_header_key] \
+        if c.hard_load_header_key in headers \
         else False
 
     data = [{'family':    service.get_service_family_name(),
              'service':   service.get_service_name(),
              'full_name': service.get_service_full_name(),
-             'data':      service.get_data(is_forced)}
+             'data':      service.get_data(is_hard_get)}
             for service in get_enabled_services()]
 
     return {

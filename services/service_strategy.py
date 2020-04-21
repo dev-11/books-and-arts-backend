@@ -16,7 +16,7 @@ class ServiceStrategy(ABC):
                         else i for i in service_name]).lstrip('_')
 
     @abstractmethod
-    def get_data(self, is_forced):
+    def get_data(self, is_hard_get):
         pass
 
     def get_service_full_name(self):
