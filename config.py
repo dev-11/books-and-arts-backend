@@ -3,6 +3,7 @@ coming_soon_url = 'https://www.waterstones.com/campaign/coming-soon'
 new_books_url = 'https://www.waterstones.com/campaign/new-books'
 exhibitions_urls = 'https://www.nationalgallery.org.uk/exhibitions'
 
+lambda_is_forced_event_key = 'is_forced'
 data_bucket = 'bna-data'
 
 enabled_services = [
