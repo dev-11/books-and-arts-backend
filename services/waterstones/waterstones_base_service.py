@@ -40,15 +40,15 @@ class WaterStonesScrapingService(ScrapingServiceBase):
             frmt = _.find(class_='format').text.strip()
             img = _.find(class_='image-wrap').a.img['data-src']
             books.append({
-                'title': title.encode("utf-8"),
-                'authors': authors.encode("utf-8"),
-                'price': price.encode("utf-8"),
-                'format': frmt.encode("utf-8"),
-                'img': img.encode("utf-8")
+                'title': title,
+                'authors': authors,
+                'price': price,
+                'format': frmt,
+                'img': img
             })
 
         return {
-            'section': section.encode("utf-8"),
+            'section': section,
             'books': books
         }
 
