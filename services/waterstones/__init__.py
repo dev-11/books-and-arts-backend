@@ -6,4 +6,3 @@ from .books_of_month_service import BooksOfTheMonthService
 from .books_of_month_service import BooksOfTheMonthScrapingService
 # from .coming_soon_service import ComingSoonService
 # from .new_books_service import NewBooksService
-

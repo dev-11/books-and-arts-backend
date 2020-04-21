@@ -46,4 +46,3 @@ class BooksOfTheMonthService(WaterstonesBaseService):
         today = dt.today()
         last_day_of_month = calendar.monthrange(today.year, today.month)[1]
         return dt(today.year, today.month, last_day_of_month, 23, 59, 59)
-

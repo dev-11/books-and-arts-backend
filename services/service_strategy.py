@@ -31,7 +31,7 @@ class ScrapingServiceBase(ABC):
     @abstractmethod
     def scrape_page(self):
         pass
-    
+
     @abstractmethod
     def scrape_item_details(self, divs):
         pass
