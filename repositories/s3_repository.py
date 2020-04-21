@@ -27,7 +27,7 @@ class S3Repository:
     def save_or_update_file(self, key, body, expiry_date):
         try:
             obj = self._s3.Object(self._bucket, key)
-            obj.put(Body=body, Metadata={'expiry-date': expiry_date})
+            obj.put(Body=body, Metadata={'expiry-date': str(expiry_date)})
 
         except ClientError as e:
             return False

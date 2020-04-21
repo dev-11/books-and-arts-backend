@@ -16,4 +16,4 @@ class CacheService:
         self._storage_service.save_or_update(key, data, expiry_date)
 
     def is_cache_expired(self, key):
-        return dt.fromisoformat(self.get_expiry_date(key)) <= dt.now()
+        return self.get_expiry_date(key) <= dt.now()
