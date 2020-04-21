@@ -1,16 +1,34 @@
-from services import ServiceStrategy
+from services import ServiceStrategy, ScrapingServiceBase
 import requests
 import bs4
 
 
 class WaterstonesBaseService(ServiceStrategy):
+    def __init__(self, scraping_service, cache_service, key):
+        self._scarping_service = scraping_service
+        self._key = key
+        self._cache_service = cache_service
+
     def get_service_family_name(self):
         return 'waterstones'
 
+    def get_data(self):
+        if self._cache_service.is_cache_expired(self._key) or self._cache_service.get_data(self._key) is None:
 
-class InnerService(WaterstonesBaseService):
-    @staticmethod
-    def get_book_details(divs):
+            data = self._scarping_service.scrape_page()
+
+            self._cache_service.update_cache(self._key, data, self.get_expiry_date())
+            return data
+
+        return self._cache_service.get_data(self._key)
+
+
+class WaterStonesScrapingService(ScrapingServiceBase):
+
+    def __init__(self, url):
+        self._url = url
+
+    def scrape_item_details(self, divs):
         section = divs.find('h2').text.strip()
         book_previews = divs.find_all(class_='book-preview')
         books = []
@@ -33,7 +51,7 @@ class InnerService(WaterstonesBaseService):
             'books': books
         }
 
-    def get_data(self):
+    def scrape_page(self):
         page = requests.get(self._url)
 
         soup = bs4.BeautifulSoup(page.text, 'html.parser')

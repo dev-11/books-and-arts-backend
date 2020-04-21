@@ -6,7 +6,7 @@ import config
 class ServiceFactoryTests(unittest.TestCase):
     def test_get_all_services_returns_every_service(self):
         all_services = service_factory.get_all_services()
-        self.assertEqual(5, len(all_services))
+        self.assertEqual(3, len(all_services))
 
     def test_get_enabled_services_returns_only_enabled_services(self):
         enabled_services = service_factory.get_enabled_services()

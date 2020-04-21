@@ -27,11 +27,11 @@ class ServiceStrategy(ABC):
         return dt.now() + td(seconds=config.default_service_life_in_seconds)
 
 
-class ScrapingService(ABC):
+class ScrapingServiceBase(ABC):
     @abstractmethod
     def scrape_page(self):
         pass
     
     @abstractmethod
-    def scrape_item_details(self):
+    def scrape_item_details(self, divs):
         pass

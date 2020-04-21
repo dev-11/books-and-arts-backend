@@ -11,8 +11,8 @@ def get_all_services():
     storage = ss.StorageService(repo)
     return [ws.BooksOfTheMonthService(config.books_of_the_month_url,
                                       cs.CacheService(storage)),
-            ws.ComingSoonService(config.coming_soon_url),
-            ws.NewBooksService(config.new_books_url),
+            # ws.ComingSoonService(config.coming_soon_url),
+            # ws.NewBooksService(config.new_books_url),
             ng.CurrentExhibitionsService(config.exhibitions_urls),
             ng.ComingSoonService(config.exhibitions_urls)]
 
