@@ -29,6 +29,6 @@ class S3Repository:
             obj = self._s3.Object(self._bucket, key)
             obj.put(Body=body, Metadata={'expiry-date': str(expiry_date)})
 
-        except ClientError as e:
+        except ClientError:
             return False
         return True
