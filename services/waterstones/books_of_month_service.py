@@ -15,7 +15,7 @@ class BooksOfTheMonthScrapingService(WaterStonesScrapingService):
         price = divs[1].find('b', itemprop='price').text.strip()
         frmat = divs[1].find(class_='format').text.strip()
         desc = divs[1].find(class_='description').text.strip()
-        img = divs[1].div.a.img['src'].replace('/large/', '/medium/')
+        img = divs[1].div.a.img['src']#.replace('/large/', '/medium/')
         return {
             'section': section,
             'title': title,
