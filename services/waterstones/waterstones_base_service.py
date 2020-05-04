@@ -41,7 +41,7 @@ class WaterStonesScrapingService(ScrapingServiceBase):
             frmt = _.find(class_='format').text.strip()
             img = _.find(class_='image-wrap').a.img['data-src']
             books.append({
-                'id': uuid.uuid4(),
+                'id': uuid.uuid4().hex,
                 'title': title,
                 'authors': authors,
                 'price': price,
