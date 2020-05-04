@@ -1,6 +1,7 @@
 from services import ServiceStrategy, ScrapingServiceBase
 import requests
 import bs4
+import uuid
 
 
 class WaterstonesBaseService(ServiceStrategy):
@@ -40,6 +41,7 @@ class WaterStonesScrapingService(ScrapingServiceBase):
             frmt = _.find(class_='format').text.strip()
             img = _.find(class_='image-wrap').a.img['data-src']
             books.append({
+                'id': uuid.uuid4(),
                 'title': title,
                 'authors': authors,
                 'price': price,

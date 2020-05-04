@@ -2,6 +2,7 @@ from .waterstones_base_service import WaterStonesScrapingService, WaterstonesBas
 from services import CacheService
 import calendar
 from datetime import datetime as dt
+import uuid
 
 
 class BooksOfTheMonthScrapingService(WaterStonesScrapingService):
@@ -17,6 +18,7 @@ class BooksOfTheMonthScrapingService(WaterStonesScrapingService):
         desc = divs[1].find(class_='description').text.strip()
         img = divs[1].div.a.img['src'].replace('/large/', '/medium/')
         return {
+            'id': uuid.uuid4(),
             'section': section,
             'title': title,
             'authors': authors,
