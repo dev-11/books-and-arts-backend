@@ -3,6 +3,8 @@ from services import CacheService
 import calendar
 from datetime import datetime as dt
 import uuid
+import requests
+import bs4
 
 
 class BooksOfTheMonthScrapingService(WaterStonesScrapingService):
@@ -17,6 +19,7 @@ class BooksOfTheMonthScrapingService(WaterStonesScrapingService):
         frmat = divs[1].find(class_='format').text.strip()
         desc = divs[1].find(class_='description').text.strip()
         img = divs[1].div.a.img['src'].replace('/large/', '/medium/')
+        genres, nop, published_at = self.get_extra(divs[1].div.a['href'])
         return {
             'id': uuid.uuid4().hex,
             'section': section,
@@ -25,8 +28,24 @@ class BooksOfTheMonthScrapingService(WaterStonesScrapingService):
             'price': price,
             'format': frmat,
             'desc': desc,
-            'img': img
+            'img': img,
+            'genres': genres,
+            'number_of_pages': nop,
+            'published_at': published_at
         }
+
+    @staticmethod
+    def get_extra(link):
+        page = requests.get(link)
+        soup = bs4.BeautifulSoup(page.text, 'html.parser')
+
+        genre = soup.find(class_="breadcrumbs span12")
+
+        genres = [_.text for _ in genre.findAll('a')]
+        number_of_pages = soup.find(itemprop="numberOfPages").text.strip()
+        date_published = soup.find(itemprop="datePublished").text.strip()
+
+        return genres, number_of_pages, date_published
 
     def scrape_page(self):
         sections = super().scrape_page()
