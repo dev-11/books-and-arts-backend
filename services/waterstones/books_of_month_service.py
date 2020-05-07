@@ -19,7 +19,7 @@ class BooksOfTheMonthScrapingService(WaterStonesScrapingService):
         frmat = divs[1].find(class_='format').text.strip()
         desc = divs[1].find(class_='description').text.strip()
         img = divs[1].div.a.img['src'].replace('/large/', '/medium/')
-        genres, nop, published_at = self.get_extra(divs[1].div.a['href'])
+        genres, nop, published_at = self.get_extra(f'https://www.waterstones.com/{divs[1].div.a["href"]}')
         return {
             'id': uuid.uuid4().hex,
             'section': section,
