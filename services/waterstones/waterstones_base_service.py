@@ -39,20 +39,37 @@ class WaterStonesScrapingService(ScrapingServiceBase):
             authors = _.find(class_='author-wrap').text.strip()
             price = _.find(class_='price').text.strip()
             frmt = _.find(class_='format').text.strip()
-            img = _.find(class_='image-wrap').a.img['data-src']
+            img = _.find(class_='image-wrap').a.img['data-src'].replace('/large/', '/medium/')
+            genres, nop, published_at = self.get_extra(f"https://www.waterstones.com/{_.find(class_='image-wrap').a['href']}")
             books.append({
                 'id': uuid.uuid4().hex,
                 'title': title,
                 'authors': authors,
                 'price': price,
                 'format': frmt,
-                'img': img
+                'img': img,
+                'genres': genres,
+                'number_of_pages': nop,
+                'published_at': published_at
             })
 
         return {
             'section': section,
             'books': books
         }
+
+    @staticmethod
+    def get_extra(link):
+        page = requests.get(link)
+        soup = bs4.BeautifulSoup(page.text, 'html.parser')
+
+        genre = soup.find(class_="breadcrumbs span12")
+
+        genres = [_.text for _ in genre.findAll('a')]
+        number_of_pages = soup.find(itemprop="numberOfPages").text.strip()
+        date_published = soup.find(itemprop="datePublished").text.strip()
+
+        return genres, number_of_pages, date_published
 
     def scrape_page(self):
         page = requests.get(self._url)
