@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 from services import ServiceStrategy, ScrapingServiceBase
 import uuid
+import cssutils
 
 
 class NationalGalleryBaseService(ServiceStrategy):
@@ -38,14 +39,17 @@ class NationalGalleryScrapingService(ScrapingServiceBase):
             title = _.find(class_='exhibition-title d-flex flex-column').text.strip()
             date = _.find(class_='exhibition-date').text.strip()
             description = _.find(class_='exhibition-description').text.strip()
-            img = 'https://www.britishmuseum.org//sites/default/files/styles/1_1_media_tiny/public/2020-01/Arctic_climage_and_culture_british_museum_exhibition_2020.jpg?h=7a45aeb0&itok=ouF4iEZ4%20400w,%20/sites/default/files/styles/1_1_media_small/public/2020-01/Arctic_climage_and_culture_british_museum_exhibition_2020.jpg?h=7a45aeb0&itok=7CsjxhBX%20750w,%20/sites/default/files/styles/1_1_media_medium/public/2020-01/Arctic_climage_and_culture_british_museum_exhibition_2020.jpg'
-            # _.find(class_='w-100')
-            # style="background-image: url('/media/31157/nicolaes-maes_listing-image.jpg')
-        """
-        <div class="w-100">
-            <div style="background-image: url('/media/31157/nicolaes-maes_listing-image.jpg')"></div>
-        </div>
-        """
+            div_style = _.find(class_='w-100').find('div')['style']
+            style = cssutils.parseStyle(div_style)
+            url = style['background-image']
+            img = url.replace('url(', '').replace(')', '')
+            img_url = f'https://www.nationalgallery.org.uk/{img}'
+            """
+            style="background-image: url('/media/31157/nicolaes-maes_listing-image.jpg')
+            <div class="w-100">
+                <div style="background-image: url('/media/31157/nicolaes-maes_listing-image.jpg')"></div>
+            </div>
+            """
 
             e.append({
                 'id': uuid.uuid4().hex,
@@ -53,7 +57,7 @@ class NationalGalleryScrapingService(ScrapingServiceBase):
                 'title': title,
                 'date': date,
                 'description': description,
-                'img': img
+                'img': img_url
             })
 
         return {
