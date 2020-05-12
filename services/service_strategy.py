@@ -6,6 +6,10 @@ import config
 
 class ServiceStrategy(ABC):
     @abstractmethod
+    def get_service_type(self):
+        pass
+
+    @abstractmethod
     def get_service_family_name(self):
         pass
 

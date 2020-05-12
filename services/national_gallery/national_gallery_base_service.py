@@ -14,6 +14,9 @@ class NationalGalleryBaseService(ServiceStrategy):
     def get_service_family_name(self):
         return 'national_gallery'
 
+    def get_service_type(self):
+        return 'arts'
+
     def get_data(self, is_hard_get):
         if is_hard_get \
                 or self._cache_service.is_cache_expired(self._key) \

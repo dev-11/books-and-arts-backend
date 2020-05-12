@@ -13,6 +13,9 @@ class WaterstonesBaseService(ServiceStrategy):
     def get_service_family_name(self):
         return 'waterstones'
 
+    def get_service_type(self):
+        return 'books'
+
     def get_data(self, is_hard_get):
         if is_hard_get \
                 or self._cache_service.is_cache_expired(self._key) \
