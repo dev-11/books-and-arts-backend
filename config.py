@@ -8,10 +8,10 @@ data_bucket = 'bna-data'
 
 enabled_services = [
     'waterstones.books_of_the_month',
-    'waterstones.coming_soon',
-    'waterstones.new_books',
-    # 'national_gallery.current_exhibitions',
-    # 'national_gallery.coming_soon'
+    # 'waterstones.coming_soon',
+    # 'waterstones.new_books',
+    'national_gallery.current_exhibitions',
+    'national_gallery.coming_soon'
 ]
 
 default_service_life_in_seconds = 604800

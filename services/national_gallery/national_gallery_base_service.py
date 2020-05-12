@@ -1,16 +1,35 @@
 import requests
 from bs4 import BeautifulSoup
-from services import ServiceStrategy
+from services import ServiceStrategy, ScrapingServiceBase
+import uuid
 
 
 class NationalGalleryBaseService(ServiceStrategy):
+    def __init__(self, scraping_service, cache_service, key):
+        self._scraping_service = scraping_service
+        self._key = key
+        self._cache_service = cache_service
+
     def get_service_family_name(self):
         return 'national_gallery'
 
+    def get_data(self, is_hard_get):
+        if is_hard_get \
+                or self._cache_service.is_cache_expired(self._key) \
+                or self._cache_service.get_data(self._key) is None:
+            data = self._scraping_service.scrape_page()
 
-class InnerService(NationalGalleryBaseService):
-    @staticmethod
-    def get_exhibition_details(divs):
+            self._cache_service.update_cache(self._key, data, self.get_expiry_date())
+            return data
+
+        return self._cache_service.get_data(self._key)
+
+
+class NationalGalleryScrapingService(ScrapingServiceBase):
+    def __init__(self, url):
+        self._url = url
+
+    def scrape_item_details(self, divs):
         section = divs[0].find('span').text.strip()
         exhibitions = divs[1].find_all(class_='card exhibition-card')
         e = []
@@ -22,6 +41,7 @@ class InnerService(NationalGalleryBaseService):
             img = _.find(class_='w-100')
 
             e.append({
+                'id': uuid.uuid4().hex,
                 'payment_type': payment_type.encode("utf-8"),
                 'title': title.encode("utf-8"),
                 'date': date.encode("utf-8"),
@@ -34,7 +54,7 @@ class InnerService(NationalGalleryBaseService):
             'exhibitions': e
         }
 
-    def get_data(self):
+    def scrape_page(self):
         page = requests.get(self._url)
 
         soup = BeautifulSoup(page.text, 'html.parser')
