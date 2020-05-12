@@ -16,8 +16,16 @@ class ServiceFactory:
         return [self.get_waterstones_books_of_the_month_service(),
                 self.get_waterstones_coming_soon_service(),
                 self.get_waterstones_new_books_service(),
-                ng.CurrentExhibitionsService(config.exhibitions_urls, self._cache),
-                ng.ComingSoonService(config.exhibitions_urls, self._cache)]
+                self.get_ng_current_exhibitions_service(),
+                self.get_ng_coming_soon_service()]
+
+    def get_ng_current_exhibitions_service(self):
+        scraping_service = ng.CurrentExhibitionsScrapingService(config.exhibitions_urls)
+        return ng.CurrentExhibitionsService(scraping_service, self._cache)
+
+    def get_ng_coming_soon_service(self):
+        scraping_service = ng.ComingSoonScrapingService(config.exhibitions_urls)
+        return ng.ComingSoonService(scraping_service, self._cache)
 
     def get_waterstones_books_of_the_month_service(self):
         scraping_service = ws.BooksOfTheMonthScrapingService(config.books_of_the_month_url)
