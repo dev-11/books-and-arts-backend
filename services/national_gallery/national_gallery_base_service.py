@@ -38,15 +38,16 @@ class NationalGalleryScrapingService(ScrapingServiceBase):
             title = _.find(class_='exhibition-title d-flex flex-column').text.strip()
             date = _.find(class_='exhibition-date').text.strip()
             description = _.find(class_='exhibition-description').text.strip()
-            img = _.find(class_='w-100')
+            img = 'https://www.britishmuseum.org//sites/default/files/styles/1_1_media_tiny/public/2020-01/Arctic_climage_and_culture_british_museum_exhibition_2020.jpg?h=7a45aeb0&itok=ouF4iEZ4%20400w,%20/sites/default/files/styles/1_1_media_small/public/2020-01/Arctic_climage_and_culture_british_museum_exhibition_2020.jpg?h=7a45aeb0&itok=7CsjxhBX%20750w,%20/sites/default/files/styles/1_1_media_medium/public/2020-01/Arctic_climage_and_culture_british_museum_exhibition_2020.jpg'
+            # _.find(class_='w-100')
 
             e.append({
                 'id': uuid.uuid4().hex,
-                'payment_type': payment_type.encode("utf-8"),
-                'title': title.encode("utf-8"),
-                'date': date.encode("utf-8"),
-                'description': description.encode("utf-8"),
-                'img': img.encode("utf-8")
+                'payment_type': payment_type,
+                'title': title,
+                'date': date,
+                'description': description,
+                'img': img
             })
 
         return {
