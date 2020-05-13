@@ -71,13 +71,13 @@ class WaterStonesScrapingService(ScrapingServiceBase):
         genres = [_.text for _ in genre.findAll('a')]
         number_of_pages = self.get_text_or_default(soup.find(itemprop="numberOfPages")).strip()
         date_published = self.get_text_or_default(soup.find(itemprop="datePublished")).strip()
-        description = soup.find("div", id="scope_book_description")
+        description = soup.find("div", id="scope_book_description").text.strip()
 
         return genres, number_of_pages, date_published, description
 
     @staticmethod
     def get_text_or_default(html_tag: bs4.PageElement):
-        return 'N/A' if html_tag is None else html_tag.text
+        return 'N/A' if html_tag is None else html_tag.text.strip()
 
     def scrape_page(self):
         page = requests.get(self._url)
