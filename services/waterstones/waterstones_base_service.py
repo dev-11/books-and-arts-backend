@@ -61,18 +61,21 @@ class WaterStonesScrapingService(ScrapingServiceBase):
             'books': books
         }
 
-    @staticmethod
-    def get_extra(link):
+    def get_extra(self, link):
         page = requests.get(link)
         soup = bs4.BeautifulSoup(page.text, 'html.parser')
 
         genre = soup.find(class_="breadcrumbs span12")
 
         genres = [_.text for _ in genre.findAll('a')]
-        number_of_pages = soup.find(itemprop="numberOfPages").text.strip()
-        date_published = soup.find(itemprop="datePublished").text.strip()
+        number_of_pages = self.get_text_or_default(soup.find(itemprop="numberOfPages")).strip()
+        date_published = self.get_text_or_default(soup.find(itemprop="datePublished")).strip()
 
         return genres, number_of_pages, date_published
+
+    @staticmethod
+    def get_text_or_na(html_tag: bs4.PageElement):
+        return 'N/A' if html_tag is None else html_tag.text
 
     def scrape_page(self):
         page = requests.get(self._url)
