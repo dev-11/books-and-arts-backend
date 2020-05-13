@@ -47,12 +47,6 @@ class NationalGalleryScrapingService(ScrapingServiceBase):
             url = style['background-image']
             img = url.replace('url(', '').replace(')', '')
             img_url = f'https://www.nationalgallery.org.uk/{img}'
-            """
-            style="background-image: url('/media/31157/nicolaes-maes_listing-image.jpg')
-            <div class="w-100">
-                <div style="background-image: url('/media/31157/nicolaes-maes_listing-image.jpg')"></div>
-            </div>
-            """
 
             e.append({
                 'id': uuid.uuid4().hex,

@@ -43,7 +43,7 @@ class WaterStonesScrapingService(ScrapingServiceBase):
             price = _.find(class_='price').text.strip()
             frmt = _.find(class_='format').text.strip()
             img = _.find(class_='image-wrap').a.img['data-src'].replace('/large/', '/medium/')
-            genres, nop, published_at = self.get_extra(f"https://www.waterstones.com/{_.find(class_='image-wrap').a['href']}")
+            genres, nop, published_at, desc = self.get_extra(f"https://www.waterstones.com/{_.find(class_='image-wrap').a['href']}")
             books.append({
                 'id': uuid.uuid4().hex,
                 'title': title,
@@ -53,7 +53,8 @@ class WaterStonesScrapingService(ScrapingServiceBase):
                 'img': img,
                 'genres': genres,
                 'number_of_pages': nop,
-                'published_at': published_at
+                'published_at': published_at,
+                'description': desc
             })
 
         return {
@@ -70,8 +71,9 @@ class WaterStonesScrapingService(ScrapingServiceBase):
         genres = [_.text for _ in genre.findAll('a')]
         number_of_pages = self.get_text_or_default(soup.find(itemprop="numberOfPages")).strip()
         date_published = self.get_text_or_default(soup.find(itemprop="datePublished")).strip()
+        description = soup.find("div", {"id": "scope_book_description"})
 
-        return genres, number_of_pages, date_published
+        return genres, number_of_pages, date_published, description
 
     @staticmethod
     def get_text_or_default(html_tag: bs4.PageElement):
