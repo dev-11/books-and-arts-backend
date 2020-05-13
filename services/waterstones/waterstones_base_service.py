@@ -74,7 +74,7 @@ class WaterStonesScrapingService(ScrapingServiceBase):
         return genres, number_of_pages, date_published
 
     @staticmethod
-    def get_text_or_na(html_tag: bs4.PageElement):
+    def get_text_or_default(html_tag: bs4.PageElement):
         return 'N/A' if html_tag is None else html_tag.text
 
     def scrape_page(self):
