@@ -1,7 +1,7 @@
 from services import ServiceStrategy, ScrapingServiceBase
 import requests
 import bs4
-import uuid
+import hashlib
 
 
 class WaterstonesBaseService(ServiceStrategy):
@@ -43,9 +43,10 @@ class WaterStonesScrapingService(ScrapingServiceBase):
             price = _.find(class_='price').text.strip()
             frmt = _.find(class_='format').text.strip()
             img = _.find(class_='image-wrap').a.img['data-src'].replace('/large/', '/medium/')
-            genres, nop, published_at, desc = self.get_extra(f"https://www.waterstones.com/{_.find(class_='image-wrap').a['href']}")
+            book_url = f"https://www.waterstones.com/{_.find(class_='image-wrap').a['href']}"
+            genres, nop, published_at, desc = self.get_extra(book_url)
             books.append({
-                'id': uuid.uuid4().hex,
+                'id': hashlib.md5(book_url.encode()).hexdigest(),
                 'title': title,
                 'authors': authors,
                 'price': price,
