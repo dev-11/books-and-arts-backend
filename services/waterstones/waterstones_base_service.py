@@ -44,7 +44,7 @@ class WaterStonesScrapingService(ScrapingServiceBase):
             frmt = _.find(class_='format').text.strip()
             img = _.find(class_='image-wrap').a.img['data-src'].replace('/large/', '/medium/')
             book_url = f"https://www.waterstones.com/{_.find(class_='image-wrap').a['href']}"
-            genres, nop, published_at, desc = self.get_extra(book_url)
+            genres, nop, published_at, isbn, desc = self.get_extra(book_url)
             books.append({
                 'id': hashlib.md5(book_url.encode()).hexdigest(),
                 'title': title,
@@ -55,6 +55,7 @@ class WaterStonesScrapingService(ScrapingServiceBase):
                 'genres': genres,
                 'number_of_pages': nop,
                 'published_at': published_at,
+                'isbn': isbn,
                 'desc': desc
             })
 
@@ -71,14 +72,15 @@ class WaterStonesScrapingService(ScrapingServiceBase):
 
         genres = [_.text for _ in genre.findAll('a')]
         number_of_pages = self.get_text_or_default(soup.find(itemprop="numberOfPages")).strip()
+        isbn = self.get_text_or_default(soup.find(itemprop="isbn")).strip()
         date_published = self.get_text_or_default(soup.find(itemprop="datePublished")).strip()
         description = soup.find("div", id="scope_book_description").text.strip()
 
-        return genres, number_of_pages, date_published, description
+        return genres, number_of_pages, date_published, isbn, description
 
     @staticmethod
     def get_text_or_default(html_tag: bs4.PageElement):
-        return 'N/A' if html_tag is None else html_tag.text.strip()
+        return '' if html_tag is None else html_tag.text.strip()
 
     def scrape_page(self):
         page = requests.get(self._url)

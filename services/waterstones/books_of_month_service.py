@@ -19,7 +19,7 @@ class BooksOfTheMonthScrapingService(WaterStonesScrapingService):
         frmat = divs[1].find(class_='format').text.strip()
         desc = divs[1].find(class_='description').text.strip()
         img = divs[1].div.a.img['src'].replace('/large/', '/medium/')
-        genres, nop, published_at = self.get_extra(f'https://www.waterstones.com/{divs[1].div.a["href"]}')
+        genres, nop, published_at, isbn = self.get_extra(f'https://www.waterstones.com/{divs[1].div.a["href"]}')
 
         return {
             'section': section,
@@ -34,7 +34,8 @@ class BooksOfTheMonthScrapingService(WaterStonesScrapingService):
                     'img': img,
                     'genres': genres,
                     'number_of_pages': nop,
-                    'published_at': published_at
+                    'published_at': published_at,
+                    'isbn': isbn
                 }
             ]
         }
@@ -49,8 +50,9 @@ class BooksOfTheMonthScrapingService(WaterStonesScrapingService):
         genres = [_.text for _ in genre.findAll('a')]
         number_of_pages = soup.find(itemprop="numberOfPages").text.strip()
         date_published = soup.find(itemprop="datePublished").text.strip()
+        isbn = soup.find(itemprop="isbn").text.strip()
 
-        return genres, number_of_pages, date_published
+        return genres, number_of_pages, date_published, isbn
 
     def scrape_page(self):
         sections = super().scrape_page()
