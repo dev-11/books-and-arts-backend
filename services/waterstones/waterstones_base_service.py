@@ -30,8 +30,7 @@ class WaterstonesBaseService(ServiceStrategy):
             for d in data['data']:
                 for book in d['books']:
                     r = list(filter(lambda x: x['isbn13'] == book['isbn'], ratings['books']))
-                    if len(r) >  0:
-                        book['rating'] = r
+                    book['rating'] = r if len(r) >  0 else {}
 
             self._cache_service.update_cache(self._key, data, self.get_expiry_date())
             return data
