@@ -1,5 +1,5 @@
 from services import ServiceStrategy, ScrapingServiceBase
-from services.waterstones import RatingService
+from .rating_service import RatingService
 import requests
 import bs4
 import hashlib
