@@ -1,8 +1,9 @@
 from services import ServiceStrategy, ScrapingServiceBase
+from services.waterstones import RatingService
 import requests
 import bs4
 import hashlib
-
+import config
 
 class WaterstonesBaseService(ServiceStrategy):
     def __init__(self, scraping_service, cache_service, key):
@@ -22,10 +23,25 @@ class WaterstonesBaseService(ServiceStrategy):
                 or self._cache_service.get_data(self._key) is None:
             data = self._scraping_service.scrape_page()
 
+            isbns = list(self.get_isbns(data))
+            rs = RatingService(config.good_reads_api_key)
+            ratings = rs.get_ratings(isbns)
+
+            for d in data['data']:
+                for book in d['books']:
+                    r = list(filter(lambda x: x['isbn13'] == book['isbn'], ratings['books']))
+                    if len(r) >  0:
+                        book['rating'] = r
+
             self._cache_service.update_cache(self._key, data, self.get_expiry_date())
             return data
 
         return self._cache_service.get_data(self._key)
+
+    def get_isbns(self, data):
+        for d in data['data']:
+            for book in d['books']:
+                yield book['isbn']
 
 
 class WaterStonesScrapingService(ScrapingServiceBase):
