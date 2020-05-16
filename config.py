@@ -15,4 +15,3 @@ enabled_services = [
 ]
 
 default_service_life_in_seconds = 7776000 # 604800
-good_reads_api_key = ''

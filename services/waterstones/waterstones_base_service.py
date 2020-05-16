@@ -1,15 +1,16 @@
 from services import ServiceStrategy, ScrapingServiceBase
-from .rating_service import RatingService
+from .merging_service import MergingService
 import requests
 import bs4
 import hashlib
-import config
+import secrets
 
 class WaterstonesBaseService(ServiceStrategy):
-    def __init__(self, scraping_service, cache_service, key):
+    def __init__(self, scraping_service, cache_service, key, merging_service: MergingService):
         self._scraping_service = scraping_service
         self._key = key
         self._cache_service = cache_service
+        self._merging_service = merging_service
 
     def get_service_family_name(self):
         return 'waterstones'
@@ -23,25 +24,17 @@ class WaterstonesBaseService(ServiceStrategy):
                 or self._cache_service.get_data(self._key) is None:
             data = self._scraping_service.scrape_page()
 
-            isbns = list(self.get_isbns(data))
-            rs = RatingService(config.good_reads_api_key)
-            ratings = rs.get_ratings(isbns)
-
-            for d in data['data']:
-                for book in d['books']:
-                    r = list(filter(lambda x: x['isbn13'] == book['isbn'], ratings['books']))
-                    book['rating'] = r if len(r) >  0 else {}
+            isbns = self.get_isbns(data)
+            data = self._merging_service.merge(data, isbns)
 
             self._cache_service.update_cache(self._key, data, self.get_expiry_date())
             return data
 
+        # TODO: refresh ratings if expired
         return self._cache_service.get_data(self._key)
 
-    def get_isbns(self, data):
-        for d in data['data']:
-            for book in d['books']:
-                yield book['isbn']
-
+    def get_isbns(self, sections):
+        return [book['isbn'] for section in sections for book in section['books']]
 
 class WaterStonesScrapingService(ScrapingServiceBase):
 

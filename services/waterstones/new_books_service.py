@@ -1,4 +1,5 @@
 from .waterstones_base_service import WaterstonesBaseService, WaterStonesScrapingService
+from .merging_service import MergingService
 from services import CacheService
 
 
@@ -16,6 +17,6 @@ class NewBooksScrapingService(WaterStonesScrapingService):
 
 
 class NewBooksService(WaterstonesBaseService):
-    def __init__(self, scarping_service: NewBooksScrapingService, cache_service: CacheService):
+    def __init__(self, scarping_service: NewBooksScrapingService, cache_service: CacheService, merging_service: MergingService):
         key = f'{self.get_service_full_name().replace(".", "/")}.json'
-        super().__init__(scarping_service, cache_service, key)
+        super().__init__(scarping_service, cache_service, key, merging_service)

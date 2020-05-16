@@ -9,3 +9,4 @@ from .coming_soon_service import ComingSoonScrapingService
 from .new_books_service import NewBooksService
 from .new_books_service import NewBooksScrapingService
 from .rating_service import RatingService
+from .merging_service import MergingService

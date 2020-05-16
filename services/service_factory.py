@@ -4,6 +4,7 @@ import services.cache_service as cs
 import repositories.s3_repository as s3r
 import services.storage_service as ss
 import config
+import secrets
 
 
 class ServiceFactory:
@@ -11,6 +12,7 @@ class ServiceFactory:
         repo = s3r.S3Repository(config.data_bucket)
         storage = ss.StorageService(repo)
         self._cache = cs.CacheService(storage)
+        self._rating_service = ws.MergingService(secrets.good_reads_api_key)
 
     def get_all_services(self):
         return [self.get_waterstones_books_of_the_month_service(),
@@ -29,15 +31,15 @@ class ServiceFactory:
 
     def get_waterstones_books_of_the_month_service(self):
         scraping_service = ws.BooksOfTheMonthScrapingService(config.books_of_the_month_url)
-        return ws.BooksOfTheMonthService(scraping_service, self._cache)
+        return ws.BooksOfTheMonthService(scraping_service, self._cache, self._rating_service)
 
     def get_waterstones_coming_soon_service(self):
         scraper = ws.ComingSoonScrapingService(config.coming_soon_url)
-        return ws.ComingSoonService(scraper, self._cache)
+        return ws.ComingSoonService(scraper, self._cache, self._rating_service)
 
     def get_waterstones_new_books_service(self):
         scraper = ws.NewBooksScrapingService(config.new_books_url)
-        return ws.NewBooksService(scraper, self._cache)
+        return ws.NewBooksService(scraper, self._cache, self._rating_service)
 
 
 def get_enabled_services():
