@@ -1,5 +1,5 @@
 import boto3
-from secrets import secrets
+import os
 
 
 class SecretRepository:
@@ -17,4 +17,4 @@ class SSMRepository(SecretRepository):
 
 class LocalSecretRepository(SecretRepository):
     def get_parameter(self, parameter_name):
-        return secrets[parameter_name]
+        return os.environ[parameter_name]
