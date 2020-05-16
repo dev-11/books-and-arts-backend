@@ -24,10 +24,16 @@ class S3Repository:
             return False
         return True
 
-    def save_or_update_file(self, key, body, expiry_date):
+    def save_or_update_file(self, key, body, expiry_date, secondary_expiry_date = None):
         try:
+            if secondary_expiry_date is not None:
+                metadata={'expiry-date': str(expiry_date),
+                          'secondary-expiry-date': str(secondary_expiry_date)}
+            else:
+                metadata={'expiry-date': str(expiry_date)}
+            
             obj = self._s3.Object(self._bucket, key)
-            obj.put(Body=body, Metadata={'expiry-date': str(expiry_date)})
+            obj.put(Body=body, Metadata=metadata)
 
         except ClientError:
             return False

@@ -1,4 +1,4 @@
-from services import ServiceStrategy, ScrapingServiceBase
+from services import ServiceStrategy, ScrapingServiceBase, CacheService
 from .merging_service import MergingService
 import requests
 import bs4
@@ -6,7 +6,7 @@ import hashlib
 import secrets
 
 class WaterstonesBaseService(ServiceStrategy):
-    def __init__(self, scraping_service, cache_service, key, merging_service: MergingService):
+    def __init__(self, scraping_service, cache_service: CacheService, key, merging_service: MergingService):
         self._scraping_service = scraping_service
         self._key = key
         self._cache_service = cache_service
@@ -27,11 +27,19 @@ class WaterstonesBaseService(ServiceStrategy):
             isbns = self.get_isbns(data)
             data = self._merging_service.merge(data, isbns)
 
-            self._cache_service.update_cache(self._key, data, self.get_expiry_date())
+            self._cache_service.update_cache(self._key, data, self.get_expiry_date(), self.get_secondary_expiry_date())
             return data
 
-        # TODO: refresh ratings if expired
-        return self._cache_service.get_data(self._key)
+        data = self._cache_service.get_data(self._key)
+        if self._cache_service.is_seconday_cache_expired():
+            expiry_date = self._cache_service.get_expiry_date(self._key)
+            secondary_expiry_date = self.get_secondary_expiry_date()
+            isbns = self.get_isbns(data)
+            data = self._merging_service.merge(data, isbns)
+            self._cache_service.update_cache(self._key, data, expiry_date, secondary_expiry_date)
+            return data
+
+        return data
 
     def get_isbns(self, sections):
         return [book['isbn'] for section in sections for book in section['books']]

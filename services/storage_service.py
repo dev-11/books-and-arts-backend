@@ -14,6 +14,13 @@ class StorageService:
 
         return dt(2000, 1, 1, 0, 0, 0)
 
+    def get_secondary_expiry_date(self, key):
+        if self._repo.has_key(key):
+            metadata = self._repo.get_metadata(key)
+            return dt.fromisoformat(metadata['secondary-expiry-date'])
+
+        return dt(2000, 1, 1, 0, 0, 0)
+
     def get(self, key):
         data = self._repo.get_body(key)
         return json.loads(data)

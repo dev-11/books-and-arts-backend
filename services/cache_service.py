@@ -17,3 +17,9 @@ class CacheService:
 
     def is_cache_expired(self, key):
         return self.get_expiry_date(key) <= dt.now()
+
+    def is_secondary_cache_expired(self, key):
+        return self.get_secondary_expiry_date(key) <= dt.now()
+
+    def get_secondary_expiry_date(self, key):
+        return self._storage_service.get_secondary_expiry_date(key)

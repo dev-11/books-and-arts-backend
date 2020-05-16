@@ -30,6 +30,9 @@ class ServiceStrategy(ABC):
     def get_expiry_date():
         return dt.now() + td(seconds=config.default_service_life_in_seconds)
 
+    @staticmethod
+    def get_secondary_expiry_date():
+        return dt.now + td(days=1)
 
 class ScrapingServiceBase(ABC):
     @abstractmethod
