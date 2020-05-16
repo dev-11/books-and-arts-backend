@@ -32,7 +32,7 @@ class ServiceStrategy(ABC):
 
     @staticmethod
     def get_secondary_expiry_date():
-        return dt.now + td(days=1)
+        return dt.now() + td(days=1)
 
 class ScrapingServiceBase(ABC):
     @abstractmethod

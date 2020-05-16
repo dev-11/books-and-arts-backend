@@ -25,5 +25,5 @@ class StorageService:
         data = self._repo.get_body(key)
         return json.loads(data)
 
-    def save_or_update(self, key, data, expiry_date):
-        return self._repo.save_or_update_file(key, json.dumps(data), expiry_date)
+    def save_or_update(self, key, data, expiry_date, secondary_expiry_date = None):
+        return self._repo.save_or_update_file(key, json.dumps(data), expiry_date, secondary_expiry_date)

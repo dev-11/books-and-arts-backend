@@ -31,7 +31,7 @@ class WaterstonesBaseService(ServiceStrategy):
             return data
 
         data = self._cache_service.get_data(self._key)
-        if self._cache_service.is_seconday_cache_expired():
+        if self._cache_service.is_secondary_cache_expired(self._key):
             expiry_date = self._cache_service.get_expiry_date(self._key)
             secondary_expiry_date = self.get_secondary_expiry_date()
             isbns = self.get_isbns(data)

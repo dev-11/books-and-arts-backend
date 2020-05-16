@@ -12,8 +12,8 @@ class CacheService:
     def get_data(self, key):
         return self._storage_service.get(key)
 
-    def update_cache(self, key, data, expiry_date):
-        self._storage_service.save_or_update(key, data, expiry_date)
+    def update_cache(self, key, data, expiry_date, secondary_expiry_date = None):
+        self._storage_service.save_or_update(key, data, expiry_date, secondary_expiry_date)
 
     def is_cache_expired(self, key):
         return self.get_expiry_date(key) <= dt.now()
