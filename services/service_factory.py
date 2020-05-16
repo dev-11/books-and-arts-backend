@@ -16,7 +16,7 @@ class ServiceFactory:
         self._cache = cs.CacheService(storage)
         secret_repo = sr.LocalSecretRepository() if config.is_local_env else sr.SSMRepository()
         secret_manager = SecretManagerService(secret_repo)
-        key = secret_manager.get_secret('goodreads-api-key')
+        key = secret_manager.get_secret('goodreads_api_key')
         self._merging_service = ws.MergingService(ws.RatingService(key))
 
     def get_all_services(self):
