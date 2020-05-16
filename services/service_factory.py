@@ -12,7 +12,7 @@ class ServiceFactory:
         repo = s3r.S3Repository(config.data_bucket)
         storage = ss.StorageService(repo)
         self._cache = cs.CacheService(storage)
-        self._rating_service = ws.MergingService(secrets.good_reads_api_key)
+        self._rating_service = ws.MergingService(secrets.good_reads_api_key or '')
 
     def get_all_services(self):
         return [self.get_waterstones_books_of_the_month_service(),
