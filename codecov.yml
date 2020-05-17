@@ -34,3 +34,4 @@ ignore:
   - "**/__init__.py"
   - "entry_point/*"
   - "**/service_strategy.py"
+  - "repositories/**.py"
