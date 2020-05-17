@@ -4,6 +4,7 @@ from botocore.errorfactory import ClientError
 
 class S3Repository:
     def __init__(self, bucket):
+        """S3 repo, needs a bucket to operate on."""
         self._bucket = bucket
         self._s3 = boto3.resource('s3')
 
