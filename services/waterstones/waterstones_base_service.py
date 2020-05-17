@@ -2,7 +2,7 @@ from services import ServiceStrategy, ScrapingServiceBase, CacheService
 from .merging_service import MergingService
 import requests
 import bs4
-import hashlib
+from hashlib import md5
 
 
 class WaterstonesBaseService(ServiceStrategy):
@@ -64,7 +64,7 @@ class WaterStonesScrapingService(ScrapingServiceBase):
             book_url = f"https://www.waterstones.com/{_.find(class_='image-wrap').a['href']}"
             genres, nop, published_at, isbn, desc = self.get_extra(book_url)
             books.append({
-                'id': hashlib.md5(book_url.encode()).hexdigest(),
+                'id': md5(book_url.encode()).hexdigest(),
                 'title': title,
                 'authors': authors,
                 'price': price,

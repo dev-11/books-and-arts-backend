@@ -1,7 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 from services import ServiceStrategy, ScrapingServiceBase
-import hashlib
+from hashlib import md5
 import cssutils
 
 
@@ -51,7 +51,7 @@ class NationalGalleryScrapingService(ScrapingServiceBase):
             img_url = f'https://www.nationalgallery.org.uk/{img}'
 
             e.append({
-                'id': hashlib.md5(img_url.encode()).hexdigest(),
+                'id': md5(img_url.encode()).hexdigest(),
                 'payment_type': payment_type,
                 'title': title,
                 'date': date,
