@@ -1,7 +1,4 @@
-"""
-The Waterstones specific services.
-    - books of the months service
-"""
+"""The Waterstones specific services."""
 from .books_of_month_service import BooksOfTheMonthService
 from .books_of_month_service import BooksOfTheMonthScrapingService
 from .coming_soon_service import ComingSoonService
