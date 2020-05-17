@@ -6,6 +6,7 @@ from bs4 import BeautifulSoup
 
 class ComingSoonScrapingService(NationalGalleryScrapingService):
     def __init__(self, url):
+        """Scraping the coming soon exhibitions from the url."""
         super().__init__(url)
 
     def scrape_page(self):
@@ -25,6 +26,7 @@ class ComingSoonScrapingService(NationalGalleryScrapingService):
 class ComingSoonService(NationalGalleryBaseService):
 
     def __init__(self, scarping_service: ComingSoonScrapingService, cache_service: CacheService):
+        """NG coming soon exhibitons service."""
         key = f'{self.get_service_full_name().replace(".", "/")}.json'
         super().__init__(scarping_service, cache_service, key)
 
