@@ -4,6 +4,7 @@ from services import StorageService
 
 class CacheService:
     def __init__(self, storage_service: StorageService):
+        """Cache service."""
         self._storage_service = storage_service
 
     def get_expiry_date(self, key):

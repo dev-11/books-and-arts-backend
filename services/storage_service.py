@@ -5,6 +5,7 @@ import json
 
 class StorageService:
     def __init__(self, repo: S3Repository):
+        """Service to store/read data"""
         self._repo = repo
 
     def get_expiry_date(self, key):

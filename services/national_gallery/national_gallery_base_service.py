@@ -7,6 +7,7 @@ import cssutils
 
 class NationalGalleryBaseService(ServiceStrategy):
     def __init__(self, scraping_service, cache_service, key):
+        """National Gallery base service"""
         self._scraping_service = scraping_service
         self._key = key
         self._cache_service = cache_service
@@ -31,6 +32,7 @@ class NationalGalleryBaseService(ServiceStrategy):
 
 class NationalGalleryScrapingService(ScrapingServiceBase):
     def __init__(self, url):
+        """General scraping service for NG"""
         self._url = url
 
     def scrape_item_details(self, divs):

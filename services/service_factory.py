@@ -11,6 +11,7 @@ import config
 
 class ServiceFactory:
     def __init__(self):
+        """Service to create every service"""
         repo = s3r.S3Repository(config.data_bucket)
         storage = ss.StorageService(repo)
         self._cache = cs.CacheService(storage)

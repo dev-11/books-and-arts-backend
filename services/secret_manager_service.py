@@ -3,6 +3,7 @@ from repositories.environment_repository import EnvironmentRepository
 
 class SecretManagerService:
     def __init__(self, repository: EnvironmentRepository):
+        """Service to manage secrets"""
         self._repository = repository
 
     def get_secret(self, secret_name):
