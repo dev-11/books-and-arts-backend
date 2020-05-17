@@ -3,6 +3,7 @@ from .rating_service import RatingService
 
 class MergingService:
     def __init__(self, rating_service: RatingService):
+        """Service to merge ratings and books"""
         self._rating_service = rating_service
 
     def merge(self, book_sections, isbns):

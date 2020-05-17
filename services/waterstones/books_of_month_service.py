@@ -10,6 +10,7 @@ import bs4
 
 class BooksOfTheMonthScrapingService(WaterStonesScrapingService):
     def __init__(self, url):
+        """Scraping the books of the months."""
         super().__init__(url)
 
     def scrape_item_details(self, divs):
@@ -67,6 +68,7 @@ class BooksOfTheMonthScrapingService(WaterStonesScrapingService):
 
 class BooksOfTheMonthService(WaterstonesBaseService):
     def __init__(self, scarping_service: BooksOfTheMonthScrapingService, cache_service: CacheService, merging_service: MergingService):
+        """Books of the month service."""
         key = f'{self.get_service_full_name().replace(".", "/")}.json'
         super().__init__(scarping_service, cache_service, key, merging_service)
 
