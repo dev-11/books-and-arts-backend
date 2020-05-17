@@ -5,6 +5,7 @@ from services import CacheService
 
 class ComingSoonScrapingService(WaterStonesScrapingService):
     def __init__(self, url):
+        """Scraping the coming soon section of the url."""
         super().__init__(url)
 
     def scrape_page(self):
@@ -18,5 +19,6 @@ class ComingSoonScrapingService(WaterStonesScrapingService):
 
 class ComingSoonService(WaterstonesBaseService):
     def __init__(self, scarping_service: ComingSoonScrapingService, cache_service: CacheService, merging_service: MergingService):
+        """Service to handle the coming soon books."""
         key = f'{self.get_service_full_name().replace(".", "/")}.json'
         super().__init__(scarping_service, cache_service, key, merging_service)
