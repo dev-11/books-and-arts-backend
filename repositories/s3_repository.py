@@ -32,7 +32,7 @@ class S3Repository:
                           'secondary-expiry-date': str(secondary_expiry_date)}
             else:
                 metadata={'expiry-date': str(expiry_date)}
-            
+
             obj = self._s3.Object(self._bucket, key)
             obj.put(Body=body, Metadata=metadata)
 

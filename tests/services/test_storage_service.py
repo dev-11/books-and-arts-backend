@@ -27,9 +27,9 @@ class StorageServiceTests(unittest.TestCase):
     def test_get_expiry_date_returns_expiry_date(self):
         ss = StorageService(mocks.get_mocked_s3repo_returns_expiry_date())
         result = ss.get_expiry_date('test-key')
-        self.assertEqual(dt.fromisoformat('2020-03-20T14:28:23.382748'), result)       
+        self.assertEqual(dt.fromisoformat('2020-03-20T14:28:23.382748'), result)
 
     def test_get_secondary_expiry_date_returns_expiry_date(self):
         ss = StorageService(mocks.get_mocked_s3repo_returns_expiry_date())
         result = ss.get_secondary_expiry_date('test-key')
-        self.assertEqual(dt.fromisoformat('2020-03-21T14:28:23.382748'), result)       
+        self.assertEqual(dt.fromisoformat('2020-03-21T14:28:23.382748'), result)
