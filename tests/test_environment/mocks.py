@@ -1,5 +1,5 @@
 from unittest.mock import Mock
-from repositories import S3Repository
+from repositories import S3Repository, EnvironmentRepository
 from services import StorageService
 from datetime import datetime as dt
 
@@ -46,3 +46,9 @@ def get_mocked_storage_service_with_expired_dates():
     ss.get_secondary_expiry_date = Mock(name='get_secondary_expiry_date')
     ss.get_secondary_expiry_date.return_value = dt(1900, 1, 2)
     return ss
+
+def get_env_repo():
+    er = EnvironmentRepository()
+    er.get_parameter = Mock(name='get_parameter')
+    er.get_parameter.return_value = 'test_value'
+    return er
