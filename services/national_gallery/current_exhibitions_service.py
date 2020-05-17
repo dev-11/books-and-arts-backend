@@ -6,6 +6,7 @@ from bs4 import BeautifulSoup
 
 class CurrentExhibitionsScrapingService(NationalGalleryScrapingService):
     def __init__(self, url):
+        """Getting the currently running exhibitions of the url."""
         super().__init__(url)
 
     def scrape_page(self):
@@ -24,5 +25,6 @@ class CurrentExhibitionsScrapingService(NationalGalleryScrapingService):
 class CurrentExhibitionsService(NationalGalleryBaseService):
 
     def __init__(self, scarping_service: CurrentExhibitionsScrapingService, cache_service: CacheService):
+        """NG service to get current services."""
         key = f'{self.get_service_full_name().replace(".", "/")}.json'
         super().__init__(scarping_service, cache_service, key)
