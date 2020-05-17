@@ -3,7 +3,9 @@ from repositories import S3Repository
 
 
 def get_mocked_s3repo_returns_empty_body():
-    s3r = S3Repository('')
+    s3r = S3Repository('test- bucket')
     s3r.get_body = Mock(name='get_body')
     s3r.get_body.return_value = '{}'
+    s3r.get_metadata = Mock(name='get_metadata')
+    s3r.get_body.return_value = ''
     return s3r
