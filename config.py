@@ -5,7 +5,6 @@ exhibitions_urls = 'https://www.nationalgallery.org.uk/exhibitions'
 
 hard_load_header_key = 'X-mb-bna-is-hard-load'
 data_bucket = 'bna-data'
-is_local_env = False
 
 enabled_services = [
     'waterstones.books_of_the_month',

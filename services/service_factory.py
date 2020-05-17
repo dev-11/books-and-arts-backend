@@ -2,7 +2,7 @@ import services.waterstones as ws
 import services.national_gallery as ng
 import services.cache_service as cs
 import repositories.s3_repository as s3r
-import repositories.secret_repository as sr
+import repositories.environment_repository as er
 import services.storage_service as ss
 from .secret_manager_service import SecretManagerService
 import config
@@ -14,8 +14,8 @@ class ServiceFactory:
         repo = s3r.S3Repository(config.data_bucket)
         storage = ss.StorageService(repo)
         self._cache = cs.CacheService(storage)
-        secret_repo = sr.LocalSecretRepository() if config.is_local_env else sr.SSMRepository()
-        secret_manager = SecretManagerService(secret_repo)
+        env_repo = er.EnvironmentRepository()
+        secret_manager = SecretManagerService(env_repo)
         key = secret_manager.get_secret('goodreads_api_key')
         self._merging_service = ws.MergingService(ws.RatingService(key))
 
