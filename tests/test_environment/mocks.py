@@ -1,5 +1,7 @@
 from unittest.mock import Mock
 from repositories import S3Repository
+from services import StorageService
+from datetime import datetime as dt
 
 
 def get_mocked_s3repo_returns_empty_body():
@@ -24,3 +26,11 @@ def get_mocked_s3repo_returns_expiry_date():
     s3r.has_key = Mock(name='has_key')
     s3r.has_key.return_value = True
     return s3r
+
+def get_mocked_storage_service():
+    ss = StorageService(None)
+    ss.get_expiry_date = Mock(name='get_expiry_date')
+    ss.get_expiry_date.return_value = dt(2100, 1, 1)
+    ss.get_secondary_expiry_date = Mock(name='get_secondary_expiry_date')
+    ss.get_secondary_expiry_date.return_value = dt(2100, 1, 2)
+    return ss
