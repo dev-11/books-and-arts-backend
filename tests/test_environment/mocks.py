@@ -33,6 +33,10 @@ def get_mocked_storage_service():
     ss.get_expiry_date.return_value = dt(2100, 1, 1)
     ss.get_secondary_expiry_date = Mock(name='get_secondary_expiry_date')
     ss.get_secondary_expiry_date.return_value = dt(2100, 1, 2)
+    ss.get = Mock(name='get')
+    ss.get.return_value = 'asdf'
+    ss.save_or_update = Mock(name='save_or_update')
+    ss.save_or_update.result_value = True
     return ss
 
 def get_mocked_storage_service_with_expired_dates():

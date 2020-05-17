@@ -34,3 +34,13 @@ class TestCacheService(unittest.TestCase):
         cs = CacheService(mocks.get_mocked_storage_service_with_expired_dates())
         result = cs.is_secondary_cache_expired('key')
         self.assertTrue(result)
+
+    def test_get_data_returns_unchanged_data(self):
+        cs = CacheService(mocks.get_mocked_storage_service())
+        result = cs.get_data('key')
+        self.assertEqual('asdf', result)
+
+    def test_update_cache_returns_true(self):
+        cs = CacheService(mocks.get_mocked_storage_service())
+        result = cs.update_cache('', '', '')
+        self.assertTrue(result)
