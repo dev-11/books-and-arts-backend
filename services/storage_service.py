@@ -21,5 +21,5 @@ class StorageService:
         data = self._repo.get_body(key)
         return json.loads(data)
 
-    def save_or_update(self, key, data, cache_udpate_date, secondary_cache_udpate_date = None):
-        return self._repo.save_or_update_file(key, json.dumps(data), cache_udpate_date, secondary_cache_udpate_date)
+    def save_or_update(self, key, data, cache_udpate_date):
+        return self._repo.save_or_update_file(key, json.dumps(data), cache_udpate_date)
