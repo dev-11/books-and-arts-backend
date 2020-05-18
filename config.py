@@ -14,4 +14,4 @@ enabled_services = [
     'national_gallery.coming_soon'
 ]
 
-default_service_life_in_seconds = 7776000 # 604800
+default_service_life_in_seconds = 604800
