@@ -76,4 +76,4 @@ class BooksOfTheMonthService(WaterstonesBaseService):
     @staticmethod
     def get_expiry_date():
         today = dt.today()
-        return dt(today.year, today.month, 1, 0, 0, 0) - td(second=1)
+        return dt(today.year, today.month, 1, 0, 0, 0) - td(seconds=1)
