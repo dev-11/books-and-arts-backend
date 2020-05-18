@@ -72,7 +72,8 @@ class BooksOfTheMonthService(WaterstonesBaseService):
         key = f'{self.get_service_full_name().replace(".", "/")}.json'
         super().__init__(scarping_service, cache_service, key, merging_service)
 
-    @staticmethod
-    def get_expiry_date():
-        today = dt.today()
-        return dt(today.year, today.month, 1, 0, 0, 0) - td(seconds =1)
+    def is_cache_expired(self):
+        update_date = self._cache_service.get_cache_update_date(self._key)
+        today = dt.now()
+        first_day_of_month = dt(today.year, today.month, 1, 0, 0, 0)
+        return update_date <= first_day_of_month

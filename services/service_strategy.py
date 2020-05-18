@@ -27,12 +27,12 @@ class ServiceStrategy(ABC):
         return f'{self.get_service_family_name()}.{self.get_service_name()}'
 
     @staticmethod
-    def get_expiry_date():
-        return dt.now() - td(seconds=config.default_service_life_in_seconds)
+    def get_service_life():
+        return td(seconds=config.default_service_life_in_seconds)
 
-    @staticmethod
-    def get_secondary_expiry_date():
-        return dt.now() - td(days=1)
+    @abstractmethod
+    def is_cache_expired(self):
+        pass
 
 class ScrapingServiceBase(ABC):
     @abstractmethod

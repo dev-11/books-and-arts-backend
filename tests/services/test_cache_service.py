@@ -10,16 +10,6 @@ class TestCacheService(unittest.TestCase):
         result = cs.get_cache_update_date('test-key')
         self.assertEqual(dt(2020, 1, 10), result)
 
-    def test_is_cache_expired_returns_false(self):
-        cs = CacheService(mocks.get_mocked_storage_service())
-        result = cs.is_cache_expired('key', dt(2020, 1, 11))
-        self.assertFalse(result)
-
-    def test_is_cache_expired_returns_true(self):
-        cs = CacheService(mocks.get_mocked_storage_service())
-        result = cs.is_cache_expired('key', dt(2020, 1, 1))
-        self.assertTrue(result)
-
     def test_get_data_returns_unchanged_data(self):
         cs = CacheService(mocks.get_mocked_storage_service())
         result = cs.get_data('key')

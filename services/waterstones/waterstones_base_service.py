@@ -4,6 +4,7 @@ import requests
 import bs4
 from hashlib import md5
 from datetime import datetime as dt
+from datetime import timedelta as td
 
 
 class WaterstonesBaseService(ServiceStrategy):
@@ -20,9 +21,21 @@ class WaterstonesBaseService(ServiceStrategy):
     def get_service_type(self):
         return 'books'
 
+    def is_cache_expired(self):
+        update_date = self._cache_service.get_cache_update_date(self._key)
+        return update_date + self.get_service_life() <= dt.now()
+
+    def is_secondary_cache_expired(self):
+        update_date = self._cache_service.get_cache_update_date(self._key)
+        return update_date + self.get_secondary_service_life() <= dt.now()
+
+    @staticmethod
+    def get_secondary_service_life():
+        return td(days=1)
+
     def get_data(self, is_hard_get):
         if is_hard_get \
-                or self._cache_service.is_cache_expired(self._key, self.get_expiry_date()) \
+                or self.is_cache_expired() \
                 or self._cache_service.get_data(self._key) is None:
             data = self._scraping_service.scrape_page()
 
@@ -33,7 +46,7 @@ class WaterstonesBaseService(ServiceStrategy):
             return data
 
         data = self._cache_service.get_data(self._key)
-        if self._cache_service.is_cache_expired(self._key, self.get_secondary_expiry_date()):
+        if self.is_secondary_cache_expired():
             isbns = self.get_isbns(data)
             data = self._merging_service.merge(data, isbns)
             self._cache_service.update_cache(self._key, data, dt.now())

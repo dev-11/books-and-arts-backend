@@ -19,9 +19,13 @@ class NationalGalleryBaseService(ServiceStrategy):
     def get_service_type(self):
         return 'arts'
 
+    def is_cache_expired(self):
+        update_date = self._cache_service.get_cache_update_date(self._key)
+        return update_date + self.get_service_life() <= dt.now()
+
     def get_data(self, is_hard_get):
         if is_hard_get \
-                or self._cache_service.is_cache_expired(self._key, self.get_expiry_date()) \
+                or self.is_cache_expired() \
                 or self._cache_service.get_data(self._key) is None:
             data = self._scraping_service.scrape_page()
 
