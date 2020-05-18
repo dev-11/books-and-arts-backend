@@ -1,7 +1,6 @@
 from .waterstones_base_service import WaterStonesScrapingService, WaterstonesBaseService
 from .merging_service import MergingService
 from services import CacheService
-import calendar
 from datetime import datetime as dt
 from datetime import timedelta as td
 import uuid
@@ -76,4 +75,4 @@ class BooksOfTheMonthService(WaterstonesBaseService):
     @staticmethod
     def get_expiry_date():
         today = dt.today()
-        return dt(today.year, today.month, 1, 0, 0, 0) - td(seconds=1)
+        return dt(today.year, today.month, 1, 0, 0, 0) - td(seconds =1)
