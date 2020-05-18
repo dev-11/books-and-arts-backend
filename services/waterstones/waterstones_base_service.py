@@ -3,6 +3,7 @@ from .merging_service import MergingService
 import requests
 import bs4
 from hashlib import md5
+from datetime import datetime as dt
 
 
 class WaterstonesBaseService(ServiceStrategy):
@@ -21,23 +22,21 @@ class WaterstonesBaseService(ServiceStrategy):
 
     def get_data(self, is_hard_get):
         if is_hard_get \
-                or self._cache_service.is_cache_expired(self._key) \
+                or self._cache_service.is_cache_expired(self._key, self.get_expiry_date()) \
                 or self._cache_service.get_data(self._key) is None:
             data = self._scraping_service.scrape_page()
 
             isbns = self.get_isbns(data)
             data = self._merging_service.merge(data, isbns)
 
-            self._cache_service.update_cache(self._key, data, self.get_expiry_date(), self.get_secondary_expiry_date())
+            self._cache_service.update_cache(self._key, data, dt.now())
             return data
 
         data = self._cache_service.get_data(self._key)
-        if self._cache_service.is_secondary_cache_expired(self._key):
-            expiry_date = self._cache_service.get_expiry_date(self._key)
-            secondary_expiry_date = self.get_secondary_expiry_date()
+        if self._cache_service.is_secondary_cache_expired(self._key, self.get_secondary_expiry_date()):
             isbns = self.get_isbns(data)
             data = self._merging_service.merge(data, isbns)
-            self._cache_service.update_cache(self._key, data, expiry_date, secondary_expiry_date)
+            self._cache_service.update_cache(self._key, data, dt.now())
             return data
 
         return data

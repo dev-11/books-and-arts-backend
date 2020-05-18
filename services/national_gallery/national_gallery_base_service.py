@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 from services import ServiceStrategy, ScrapingServiceBase
 from hashlib import md5
+from datetime import datetime as dt
 import cssutils
 
 
@@ -20,11 +21,11 @@ class NationalGalleryBaseService(ServiceStrategy):
 
     def get_data(self, is_hard_get):
         if is_hard_get \
-                or self._cache_service.is_cache_expired(self._key) \
+                or self._cache_service.is_cache_expired(self._key, self.get_expiry_date()) \
                 or self._cache_service.get_data(self._key) is None:
             data = self._scraping_service.scrape_page()
 
-            self._cache_service.update_cache(self._key, data, self.get_expiry_date())
+            self._cache_service.update_cache(self._key, data, dt.now())
             return data
 
         return self._cache_service.get_data(self._key)

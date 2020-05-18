@@ -3,6 +3,7 @@ from .merging_service import MergingService
 from services import CacheService
 import calendar
 from datetime import datetime as dt
+from datetime import timedelta as td
 import uuid
 import requests
 import bs4
@@ -75,5 +76,4 @@ class BooksOfTheMonthService(WaterstonesBaseService):
     @staticmethod
     def get_expiry_date():
         today = dt.today()
-        last_day_of_month = calendar.monthrange(today.year, today.month)[1]
-        return dt(today.year, today.month, last_day_of_month, 23, 59, 59)
+        return dt(today.year, today.month, 1, 0, 0, 0) - td(second=1)

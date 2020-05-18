@@ -8,17 +8,12 @@ class StorageService:
         """Service to store/read data."""
         self._repo = repo
 
-    def get_expiry_date(self, key):
+    def get_cache_update_date(self, key):
         if self._repo.has_key(key):
             metadata = self._repo.get_metadata(key)
-            return dt.fromisoformat(metadata['expiry-date'])
-
-        return dt(2000, 1, 1, 0, 0, 0)
-
-    def get_secondary_expiry_date(self, key):
-        if self._repo.has_key(key):
-            metadata = self._repo.get_metadata(key)
-            return dt.fromisoformat(metadata['secondary-expiry-date'])
+            if 'cache-update-date' not in metadata:
+                return dt(2000, 1, 1, 0, 0, 0)
+            return dt.fromisoformat(metadata['cache-update-date'])
 
         return dt(2000, 1, 1, 0, 0, 0)
 
@@ -26,5 +21,5 @@ class StorageService:
         data = self._repo.get_body(key)
         return json.loads(data)
 
-    def save_or_update(self, key, data, expiry_date, secondary_expiry_date = None):
-        return self._repo.save_or_update_file(key, json.dumps(data), expiry_date, secondary_expiry_date)
+    def save_or_update(self, key, data, cache_udpate_date, secondary_cache_udpate_date = None):
+        return self._repo.save_or_update_file(key, json.dumps(data), cache_udpate_date, secondary_cache_udpate_date)
