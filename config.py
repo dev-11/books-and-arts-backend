@@ -4,6 +4,7 @@ new_books_url = 'https://www.waterstones.com/campaign/new-books'
 exhibitions_urls = 'https://www.nationalgallery.org.uk/exhibitions'
 
 hard_load_header_key = 'X-mb-bna-is-hard-load'
+is_auto_refresh_key = 'X-mb-bna-is-auto-refresh'
 data_bucket = 'bna-data'
 
 enabled_services = [

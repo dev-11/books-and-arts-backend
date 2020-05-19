@@ -10,11 +10,15 @@ def lambda_handler(event, context):
         if c.hard_load_header_key in headers \
         else False
 
+    is_auto_refresh = parse_bool(headers[c.is_auto_refresh_key]) \
+        if c.is_auto_refresh in headers \
+        else False
+
     data = [{'family': service.get_service_family_name(),
              'service': service.get_service_name(),
              'full_name': service.get_service_full_name(),
              'service_type': service.get_service_type(),
-             'data': service.get_data(is_hard_get)}
+             'data': service.get_data(is_hard_get, is_auto_refresh)}
             for service in get_enabled_services()]
 
     return {

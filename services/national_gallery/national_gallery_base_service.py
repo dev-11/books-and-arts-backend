@@ -23,9 +23,9 @@ class NationalGalleryBaseService(ServiceStrategy):
         update_date = self._cache_service.get_cache_update_date(self._key)
         return update_date + self.get_service_life() <= dt.now()
 
-    def get_data(self, is_hard_get):
+    def get_data(self, is_hard_get, is_auto_refresh):
         if is_hard_get \
-                or self.is_cache_expired() \
+                or (self.is_cache_expired() and is_auto_refresh) \
                 or self._cache_service.get_data(self._key) is None:
             data = self._scraping_service.scrape_page()
 

@@ -33,9 +33,9 @@ class WaterstonesBaseService(ServiceStrategy):
     def get_secondary_service_life():
         return td(days=1)
 
-    def get_data(self, is_hard_get):
+    def get_data(self, is_hard_get, is_auto_refresh):
         if is_hard_get \
-                or self.is_cache_expired() \
+                or (self.is_cache_expired() and is_auto_refresh) \
                 or self._cache_service.get_data(self._key) is None:
             data = self._scraping_service.scrape_page()
 
