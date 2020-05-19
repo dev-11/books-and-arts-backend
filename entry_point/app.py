@@ -11,7 +11,7 @@ def lambda_handler(event, context):
         else False
 
     is_auto_refresh = parse_bool(headers[c.is_auto_refresh_key]) \
-        if c.is_auto_refresh in headers \
+        if c.is_auto_refresh_key in headers \
         else False
 
     data = [{'family': service.get_service_family_name(),
