@@ -1,7 +1,5 @@
 import unittest
 from services.waterstones import BooksOfTheMonthService
-from datetime import datetime as dt
-from datetime import timedelta as td
 
 
 class TestBooksOfTheMonthService(unittest.TestCase):

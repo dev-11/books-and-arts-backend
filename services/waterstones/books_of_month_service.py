@@ -2,7 +2,6 @@ from .waterstones_base_service import WaterStonesScrapingService, WaterstonesBas
 from .merging_service import MergingService
 from services import CacheService
 from datetime import datetime as dt
-from datetime import timedelta as td
 import uuid
 import requests
 import bs4
