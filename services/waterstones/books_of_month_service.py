@@ -48,7 +48,7 @@ class BooksOfTheMonthScrapingService(WaterStonesScrapingService):
 
         genre = soup.find(class_="breadcrumbs span12")
 
-        genres = set([_.text for _ in genre.findAll('a')])
+        genres = list(set([_.text for _ in genre.findAll('a')]))
         number_of_pages = soup.find(itemprop="numberOfPages").text.strip()
         date_published = soup.find(itemprop="datePublished").text.strip()
         isbn = soup.find(itemprop="isbn").text.strip()

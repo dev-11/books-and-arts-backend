@@ -100,7 +100,7 @@ class WaterStonesScrapingService(ScrapingServiceBase):
 
         genre = soup.find(class_="breadcrumbs span12")
 
-        genres = set([_.text for _ in genre.findAll('a')])
+        genres = list(set([_.text for _ in genre.findAll('a')]))
         number_of_pages = self.get_text_or_default(soup.find(itemprop="numberOfPages")).strip()
         isbn = self.get_text_or_default(soup.find(itemprop="isbn")).strip()
         date_published = self.get_text_or_default(soup.find(itemprop="datePublished")).strip()
