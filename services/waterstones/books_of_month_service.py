@@ -12,8 +12,13 @@ class BooksOfTheMonthScrapingService(WaterStonesScrapingService):
         """Scraping the books of the months."""
         super().__init__(url)
 
+    @staticmethod
+    def get_section(h2):
+        em = h2.find('em')
+        return (em if em is not None else h2).text.strip()
+
     def scrape_item_details(self, divs):
-        section = divs[0].find('h2').find('em').text.strip()
+        section = self.get_section(divs[0].find('h2'))
         title = divs[1].find(class_='title').find('a').text.strip()
         authors = divs[1].find(class_='authors').find('a').text.strip()
         price = divs[1].find('b', itemprop='price').text.strip()
