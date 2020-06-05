@@ -1,10 +1,10 @@
-from .national_gallery_base_service import (
-    NationalGalleryScrapingService,
-    NationalGalleryBaseService,
-)
-from services import CacheService
 import requests
 from bs4 import BeautifulSoup
+
+from services import CacheService
+
+from .national_gallery_base_service import (NationalGalleryBaseService,
+                                            NationalGalleryScrapingService)
 
 
 class ComingSoonScrapingService(NationalGalleryScrapingService):

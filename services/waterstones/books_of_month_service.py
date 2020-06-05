@@ -1,10 +1,14 @@
-from .waterstones_base_service import WaterStonesScrapingService, WaterstonesBaseService
-from .merging_service import MergingService
-from services import CacheService
-from datetime import datetime as dt
 import uuid
-import requests
+from datetime import datetime as dt
+
 import bs4
+import requests
+
+from services import CacheService
+
+from .merging_service import MergingService
+from .waterstones_base_service import (WaterstonesBaseService,
+                                       WaterStonesScrapingService)
 
 
 class BooksOfTheMonthScrapingService(WaterStonesScrapingService):

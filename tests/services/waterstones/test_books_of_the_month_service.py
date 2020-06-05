@@ -1,12 +1,9 @@
 import unittest
+
 from services.waterstones import BooksOfTheMonthService
 
 
 class TestBooksOfTheMonthService(unittest.TestCase):
-    # def test_get_expiry_date_returns_last_second_of_prev_month(self):
-    #     botms = BooksOfTheMonthService(None, None, None)
-    #     is_cache_expired = botms.is_cache_expired()
-    #     self.assertTrue(is_cache_expired)
 
     def test_get_service_family_name_returns_correct_value(self):
         botms = BooksOfTheMonthService(None, None, None)

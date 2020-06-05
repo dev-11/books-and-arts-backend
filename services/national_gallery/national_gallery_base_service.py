@@ -1,9 +1,11 @@
+from datetime import datetime as dt
+from hashlib import md5
+
+import cssutils
 import requests
 from bs4 import BeautifulSoup
-from services import ServiceStrategy, ScrapingServiceBase
-from hashlib import md5
-from datetime import datetime as dt
-import cssutils
+
+from services import ScrapingServiceBase, ServiceStrategy
 
 
 class NationalGalleryBaseService(ServiceStrategy):

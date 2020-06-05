@@ -1,6 +1,7 @@
 import unittest
-from services import service_factory as sf
+
 import config
+from services import service_factory as sf
 
 
 class ServiceFactoryTests(unittest.TestCase):

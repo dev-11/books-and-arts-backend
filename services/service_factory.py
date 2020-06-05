@@ -1,11 +1,12 @@
-import services.waterstones as ws
-import services.national_gallery as ng
-import services.cache_service as cs
-import repositories.s3_repository as s3r
-import repositories.environment_repository as er
-import services.storage_service as ss
-from .secret_manager_service import SecretManagerService
 import config
+import repositories.environment_repository as er
+import repositories.s3_repository as s3r
+import services.cache_service as cs
+import services.national_gallery as ng
+import services.storage_service as ss
+import services.waterstones as ws
+
+from .secret_manager_service import SecretManagerService
 
 
 class ServiceFactory:

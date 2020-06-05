@@ -1,6 +1,8 @@
-from .waterstones_base_service import WaterstonesBaseService, WaterStonesScrapingService
-from .merging_service import MergingService
 from services import CacheService
+
+from .merging_service import MergingService
+from .waterstones_base_service import (WaterstonesBaseService,
+                                       WaterStonesScrapingService)
 
 
 class NewBooksScrapingService(WaterStonesScrapingService):

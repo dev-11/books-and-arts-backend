@@ -1,7 +1,8 @@
-from unittest.mock import Mock
-from repositories import S3Repository, EnvironmentRepository
-from services import StorageService
 from datetime import datetime as dt
+from unittest.mock import Mock
+
+from repositories import EnvironmentRepository, S3Repository
+from services import StorageService
 
 
 def get_mocked_s3repo_returns_empty_body():

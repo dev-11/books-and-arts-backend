@@ -1,7 +1,8 @@
-from datetime import datetime as dt
-from services.service_factory import get_enabled_services
 import json
+from datetime import datetime as dt
+
 import config as c
+from services.service_factory import get_enabled_services
 
 
 def lambda_handler(event, context):

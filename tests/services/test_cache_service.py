@@ -1,6 +1,7 @@
 import unittest
-from services import CacheService
 from datetime import datetime as dt
+
+from services import CacheService
 from tests.test_environment import mocks
 
 

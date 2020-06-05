@@ -1,6 +1,7 @@
-from repositories.s3_repository import S3Repository
-from datetime import datetime as dt
 import json
+from datetime import datetime as dt
+
+from repositories.s3_repository import S3Repository
 
 
 class StorageService:

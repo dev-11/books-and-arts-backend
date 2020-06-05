@@ -1,10 +1,13 @@
-from services import ServiceStrategy, ScrapingServiceBase, CacheService
-from .merging_service import MergingService
-import requests
-import bs4
-from hashlib import md5
 from datetime import datetime as dt
 from datetime import timedelta as td
+from hashlib import md5
+
+import bs4
+import requests
+
+from services import CacheService, ScrapingServiceBase, ServiceStrategy
+
+from .merging_service import MergingService
 
 
 class WaterstonesBaseService(ServiceStrategy):

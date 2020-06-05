@@ -1,7 +1,8 @@
 import unittest
+from datetime import datetime as dt
+
 from services import StorageService
 from tests.test_environment import mocks
-from datetime import datetime as dt
 
 
 class StorageServiceTests(unittest.TestCase):
