@@ -18,7 +18,12 @@ class ComingSoonScrapingService(WaterStonesScrapingService):
 
 
 class ComingSoonService(WaterstonesBaseService):
-    def __init__(self, scarping_service: ComingSoonScrapingService, cache_service: CacheService, merging_service: MergingService):
+    def __init__(
+        self,
+        scarping_service: ComingSoonScrapingService,
+        cache_service: CacheService,
+        merging_service: MergingService,
+    ):
         """Service to handle the coming soon books."""
         key = f'{self.get_service_full_name().replace(".", "/")}.json'
         super().__init__(scarping_service, cache_service, key, merging_service)

@@ -14,4 +14,3 @@ class CacheService:
 
     def update_cache(self, key, data, update_date):
         return self._storage_service.save_or_update(key, data, update_date)
-

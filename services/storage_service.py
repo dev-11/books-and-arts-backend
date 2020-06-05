@@ -11,9 +11,9 @@ class StorageService:
     def get_cache_update_date(self, key):
         if self._repo.has_key(key):
             metadata = self._repo.get_metadata(key)
-            if 'cache-update-date' not in metadata:
+            if "cache-update-date" not in metadata:
                 return dt(2000, 1, 1, 0, 0, 0)
-            return dt.fromisoformat(metadata['cache-update-date'])
+            return dt.fromisoformat(metadata["cache-update-date"])
 
         return dt(2000, 1, 1, 0, 0, 0)
 
