@@ -4,7 +4,6 @@ from services.waterstones import BooksOfTheMonthService
 
 
 class TestBooksOfTheMonthService(unittest.TestCase):
-
     def test_get_service_family_name_returns_correct_value(self):
         botms = BooksOfTheMonthService(None, None, None)
         service_family_name = botms.get_service_family_name()

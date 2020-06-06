@@ -1,6 +1,6 @@
 import unittest
 
-from services.secret_manager_service import SecretManagerService
+from services import SecretManagerService
 from tests.test_environment import mocks
 
 

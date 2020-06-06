@@ -1,4 +1,5 @@
 """Services to collect all the data for the lambda."""
-from .service_strategy import ServiceStrategy, ScrapingServiceBase
-from .storage_service import StorageService
-from .cache_service import CacheService
+from .cache_service import CacheService  # noqa: F401
+from .secret_manager_service import SecretManagerService  # noqa: F401
+from .service_strategy import ScrapingServiceBase, ServiceStrategy  # noqa: F401
+from .storage_service import StorageService  # noqa: F401

@@ -1,4 +1,4 @@
-from repositories.environment_repository import EnvironmentRepository
+from repositories import EnvironmentRepository
 
 
 class SecretManagerService:

@@ -1,7 +1,7 @@
 import json
 from datetime import datetime as dt
 
-from repositories.s3_repository import S3Repository
+from repositories import S3Repository
 
 
 class StorageService:
@@ -10,7 +10,7 @@ class StorageService:
         self._repo = repo
 
     def get_cache_update_date(self, key):
-        if self._repo.has_key(key):
+        if self._repo.has_key(key):  # noqa: W601
             metadata = self._repo.get_metadata(key)
             if "cache-update-date" not in metadata:
                 return dt(2000, 1, 1, 0, 0, 0)

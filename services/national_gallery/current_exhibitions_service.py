@@ -3,8 +3,10 @@ from bs4 import BeautifulSoup
 
 from services import CacheService
 
-from .national_gallery_base_service import (NationalGalleryBaseService,
-                                            NationalGalleryScrapingService)
+from .national_gallery_base_service import (
+    NationalGalleryBaseService,
+    NationalGalleryScrapingService,
+)
 
 
 class CurrentExhibitionsScrapingService(NationalGalleryScrapingService):
