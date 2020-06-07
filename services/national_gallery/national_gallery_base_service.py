@@ -79,7 +79,7 @@ class NationalGalleryScrapingService(ScrapingServiceBase):
 
         lst = soup.find(class_="p-exhibitions-list-view")
         lst2 = lst.find_all(class_="exhibitions-list py-4")
-        lst3 = lst.find_all(class_="line-title fluid-line-title")
+        lst3 = lst.find_all(class_="line-title")
 
         zipped = list(zip(lst3, lst2))
         return zipped
