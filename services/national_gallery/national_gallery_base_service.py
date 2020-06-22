@@ -1,5 +1,5 @@
 from datetime import datetime as dt
-from hashlib import md5
+from hashlib import sha256
 
 import cssutils
 import requests
@@ -61,7 +61,7 @@ class NationalGalleryScrapingService(ScrapingServiceBase):
 
             e.append(
                 {
-                    "id": md5(img_url.encode()).hexdigest(),
+                    "id": sha256(img_url.encode()).hexdigest(),
                     "payment_type": payment_type,
                     "title": title,
                     "date": date,

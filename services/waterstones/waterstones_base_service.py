@@ -1,6 +1,6 @@
 from datetime import datetime as dt
 from datetime import timedelta as td
-from hashlib import md5
+from hashlib import sha256
 
 import bs4
 import requests
@@ -94,7 +94,7 @@ class WaterStonesScrapingService(ScrapingServiceBase):
             genres, nop, published_at, isbn, desc = self.get_extra(book_url)
             books.append(
                 {
-                    "id": md5(book_url.encode()).hexdigest(),
+                    "id": sha256(book_url.encode()).hexdigest(),
                     "title": title,
                     "authors": authors,
                     "price": price,
