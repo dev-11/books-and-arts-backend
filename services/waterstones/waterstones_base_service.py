@@ -65,7 +65,8 @@ class WaterstonesBaseService(ServiceStrategy):
 
         return data
 
-    def get_isbns(self, sections):
+    @staticmethod
+    def get_isbns(sections):
         return [book["isbn"] for section in sections for book in section["books"]]
 
 

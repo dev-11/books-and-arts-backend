@@ -2,5 +2,6 @@ import os
 
 
 class EnvironmentRepository:
-    def get_parameter(self, parameter_name):
+    @staticmethod
+    def get_parameter(parameter_name):
         return os.environ[parameter_name]
