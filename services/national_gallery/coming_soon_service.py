@@ -18,6 +18,6 @@ class ComingSoonService(NationalGalleryBaseService):
     def __init__(
         self, scarping_service: ComingSoonScrapingService, cache_service: CacheService
     ):
-        """NG coming soon exhibitons service."""
+        """NG coming soon exhibitions service."""
         key = f'{self.get_service_full_name().replace(".", "/")}.json'
         super().__init__(scarping_service, cache_service, key)
